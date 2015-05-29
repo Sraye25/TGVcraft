@@ -10,6 +10,7 @@ public class TGVcraft extends JavaPlugin
 	public void loadConfiguration()
 	{
         config.addDefault("vitesse_max",8); /*Vitesse en blocs par seconde*/
+        config.addDefault("vitesse_moy",8); /*Vitesse en blocs par seconde*/
         config.options().copyDefaults(true);
 		saveConfig();
 	}
@@ -18,7 +19,8 @@ public class TGVcraft extends JavaPlugin
 	public void onEnable()
 	{
 		loadConfiguration();
+		this.getServer().getPluginManager().registerEvents(new Listeners(), this);
 		System.out.println("Chargement de TGVcraft ...");
-		System.out.println("Vitesse max :" + config.getInt("vitesse_max"));
 	}
+	
 }
