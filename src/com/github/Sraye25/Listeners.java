@@ -91,7 +91,8 @@ public class Listeners implements Listener
 			    	{
 			    		byte face = modifDirectionRails(a_modif,dir,minecart);
 				    	a_modif.setData(face);
-			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,enlevePremLettre(dir)));
+				    	dir = enlevePremLettre(dir);
+			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir));
 			    		if(dir.length() > 0) System.out.println("dir :" + avoirDirection(minecart).charAt(0));
 			    		else System.out.println("dir : vide");
 			    	}
