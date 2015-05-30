@@ -10,7 +10,7 @@ public class TGVcraft extends JavaPlugin
 	public void loadConfiguration()
 	{
 		config.addDefault("vitesse_moy",0.4);
-        config.addDefault("vitesse_max",1.0); /* n*vitessenormale */
+        config.addDefault("vitesse_max",4.0); /* n*vitessenormale */
         config.addDefault("lent_si_vide",true); /*ralentie ou non si il y a rien dans le minecart*/
         config.options().copyDefaults(true);
 		saveConfig();

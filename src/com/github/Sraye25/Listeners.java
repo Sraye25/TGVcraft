@@ -49,11 +49,12 @@ public class Listeners implements Listener
 		    @SuppressWarnings("deprecation")
 			int id_bloc_sous_minecart = b.getTypeId();
 		    
-		    System.out.println("Bloc : " + id_bloc_sous_minecart + " / vitesse_max : " + minecart.getMaxSpeed() + " / vitesse : " + minecart.getVelocity().length());
 		    if(id_bloc_sous_minecart == 41) /*Si on passe sur un bloc d'or*/
 		    {
 		    	minecart.setMaxSpeed(plugin.getConfig().getDouble("vitesse_moy")*plugin.getConfig().getDouble("vitesse_max"));
 		    }
+		    
+		    System.out.println("Bloc : " + id_bloc_sous_minecart + " / vitesse_max : " + minecart.getMaxSpeed() + " / vitesse : " + minecart.getVelocity().length());
 		}
 	}
 }
