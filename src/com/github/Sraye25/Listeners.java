@@ -171,10 +171,10 @@ public class Listeners implements Listener
 		
 		if((direction == 'n' || direction == 's') && dir.charAt(0)=='m') { face = 0; }
 		else if((direction == 'e' && dir.charAt(0)=='m') && dir.charAt(0)=='m') { face = 1; }
-		else if( direction == 'e' && dir.charAt(0)=='g' || direction == 's' && dir.charAt(0)=='d') { face = 6; }
-		else if( direction == 'o' && dir.charAt(0)=='d' || direction == 's' && dir.charAt(0)=='g') { face = 7; }
-		else if( direction == 'o' && dir.charAt(0)=='g' || direction == 'n' && dir.charAt(0)=='d') { face = 8; }
-		else if( direction == 'e' && dir.charAt(0)=='d' || direction == 'n' && dir.charAt(0)=='g') { face = 9; }
+		else if( direction == 'o' && dir.charAt(0)=='g' || direction == 'n' && dir.charAt(0)=='d') { face = 6; }
+		else if( direction == 'e' && dir.charAt(0)=='d' || direction == 'n' && dir.charAt(0)=='g') { face = 7; }
+		else if( direction == 'e' && dir.charAt(0)=='g' || direction == 's' && dir.charAt(0)=='d') { face = 8; }
+		else if( direction == 'o' && dir.charAt(0)=='d' || direction == 's' && dir.charAt(0)=='g') { face = 9; }
 		
 		return face;
 	}
