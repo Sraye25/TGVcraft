@@ -44,7 +44,7 @@ public class Listeners implements Listener
 		  /* --- Partie direction --- */
 		  if(plugin.getConfig().getBoolean("dir_active"))
 		  {
-			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,"dgd"));
+			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,"dmgd"));
 			  minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
 			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
@@ -87,15 +87,12 @@ public class Listeners implements Listener
 			    	
 			    	loc.setY(loc.getY()+1);
 			    	Block a_modif = loc.getBlock();
-			    	if(a_modif.getType() == Material.RAILS)
+			    	if(a_modif.getType() == Material.RAILS && dir.length()!=0)
 			    	{
 			    		byte face = modifDirectionRails(a_modif,dir,minecart);
-			    		a_modif.setData(face);
-			    		if(dir.length()!=0)
-			    		{
-			    			minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
-			    			System.out.println("dir :" + avoirDirection(minecart).charAt(0));
-			    		}
+				    	a_modif.setData(face);
+			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
+			    		System.out.println("dir :" + avoirDirection(minecart).charAt(0));
 			    	}
 			    	
 			    }
