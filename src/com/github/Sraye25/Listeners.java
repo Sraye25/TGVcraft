@@ -15,7 +15,9 @@ public class Listeners implements Listener
 {
 	private Plugin plugin;
 	
-	// Notez le constructeur car sinon nous ne pourrions pas obtenir la config ! Nous ne pouvons obtenir la config uniquement avec un objet Plugin !
+	/* Notez le constructeur car sinon nous ne pourrions pas obtenir la config ! 
+	 * Nous ne pouvons obtenir la config uniquement avec un objet Plugin !
+	 */
 	public Listeners(Plugin plugin)
 	{
 		this.plugin = plugin;
@@ -47,7 +49,7 @@ public class Listeners implements Listener
 		    @SuppressWarnings("deprecation")
 			int id_bloc_sous_minecart = b.getTypeId();
 		    
-		    System.out.println("Bloc : " + id_bloc_sous_minecart + " / vitesse_max : " + minecart.getMaxSpeed());
+		    System.out.println("Bloc : " + id_bloc_sous_minecart + " / vitesse_max : " + minecart.getMaxSpeed() + " / vitesse : " + minecart.getVelocity().length());
 		}
 	}
 }
