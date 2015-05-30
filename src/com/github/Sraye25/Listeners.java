@@ -91,8 +91,7 @@ public class Listeners implements Listener
 			    	{
 			    		byte face = modifDirectionRails(a_modif,dir,minecart);
 				    	a_modif.setData(face);
-			    		if(dir.length()>1) minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
-			    		else minecart.setMetadata("direction",new FixedMetadataValue(plugin,""));
+			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,enlevePremLettre(dir)));
 			    		System.out.println("dir :" + avoirDirection(minecart).charAt(0));
 			    	}
 			    	
@@ -102,6 +101,17 @@ public class Listeners implements Listener
 			minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
 		}
+	}
+	
+	public String enlevePremLettre(String mot)
+	{
+		int taille = mot.length();
+		String res;
+		
+		if(taille <= 1) res="";
+		else res = mot.substring(1);
+		
+		return res;
 	}
 	
 	public int tronc(double nb)
