@@ -91,11 +91,14 @@ public class Listeners implements Listener
 			    	{
 			    		byte face = modifDirectionRails(a_modif,dir,minecart);
 			    		a_modif.setData(face);
-			    		if(dir.length()!=0) minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
+			    		if(dir.length()!=0)
+			    		{
+			    			minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
+			    			System.out.println("dir :" + avoirDirection(minecart).charAt(0));
+			    		}
 			    	}
 			    	
 			    }
-		    	System.out.println("dir :" + avoirDirection(minecart).charAt(0));
 			}
 		    minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
 			minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
@@ -157,6 +160,7 @@ public class Listeners implements Listener
 			if(velocity.getZ() > 0.0) { dir = 'o'; }
 			else {dir = 'e'; }
 		}
+		System.out.println("minecart dir : " + dir);
 		return dir;
 	}
 	
