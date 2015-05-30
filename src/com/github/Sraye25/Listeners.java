@@ -45,11 +45,12 @@ public class Listeners implements Listener
 		  if(plugin.getConfig().getBoolean("dir_active"))
 		  {
 			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,"dgd"));
-			  minecart.setMetadata("iteration", new FixedMetadataValue(plugin,0));
-			  minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,0));
-			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,0));
-			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,0));
+			  minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
+			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
+			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
 		  }
+		  System.out.println("Création d'un minecart :");
+		  System.out.println("direction :" + avoirDirection(minecart));
 	  }
 	}
 	
@@ -83,18 +84,18 @@ public class Listeners implements Listener
 		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
 			    	String dir = avoirDirection(minecart); /*direction*/
-			    	int ite = avoirIteration(minecart); /*iteration*/
 			    	
 			    	loc.setY(loc.getY()+1);
 			    	Block a_modif = loc.getBlock();
 			    	if(a_modif.getType() == Material.RAILS)
 			    	{
-			    		byte face = modifDirectionRails(a_modif,dir,ite,minecart);
+			    		byte face = modifDirectionRails(a_modif,dir,minecart);
 			    		a_modif.setData(face);
-			    		minecart.setMetadata("iteration",new FixedMetadataValue(plugin,ite+1));
+			    		if(dir.length()!=0) minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir.substring(1,dir.length())));
 			    	}
 			    	
 			    }
+		    	System.out.println("dir :" + avoirDirection(minecart).charAt(0));
 			}
 		    minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
 			minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
@@ -142,17 +143,6 @@ public class Listeners implements Listener
     	return liste_dir.get(i).asString();
 	}
 	
-	public int avoirIteration(Minecart minecart)
-	{
-		List<MetadataValue> liste_dir = minecart.getMetadata("iteration");
-		int i=0;
-    	while(liste_dir.get(i).getOwningPlugin() != plugin) /* tq direction n'est pas du plugin */
-    	{
-    		i++;
-    	}
-    	return liste_dir.get(i).asInt();
-	}
-	
 	public char avoirDirectionMinecart(Minecart minecart)
 	{
 		char dir=0;
@@ -170,17 +160,17 @@ public class Listeners implements Listener
 		return dir;
 	}
 	
-	public byte modifDirectionRails(Block a_modif, String dir, int ite, Minecart minecart)
+	public byte modifDirectionRails(Block a_modif, String dir, Minecart minecart)
 	{
 		byte face = 0;
 		char direction = avoirDirectionMinecart(minecart);
 		
-		if((direction == 'n' || direction == 's') && dir.charAt(ite)=='m') { face = 0; }
-		else if((direction == 'e' && dir.charAt(ite)=='m') && dir.charAt(ite)=='m') { face = 1; }
-		else if( direction == 'e' && dir.charAt(ite)=='g' || direction == 's' && dir.charAt(ite)=='d') { face = 6; }
-		else if( direction == 'o' && dir.charAt(ite)=='d' || direction == 's' && dir.charAt(ite)=='g') { face = 7; }
-		else if( direction == 'o' && dir.charAt(ite)=='g' || direction == 'n' && dir.charAt(ite)=='d') { face = 8; }
-		else if( direction == 'e' && dir.charAt(ite)=='d' || direction == 'n' && dir.charAt(ite)=='g') { face = 9; }
+		if((direction == 'n' || direction == 's') && dir.charAt(0)=='m') { face = 0; }
+		else if((direction == 'e' && dir.charAt(0)=='m') && dir.charAt(0)=='m') { face = 1; }
+		else if( direction == 'e' && dir.charAt(0)=='g' || direction == 's' && dir.charAt(0)=='d') { face = 6; }
+		else if( direction == 'o' && dir.charAt(0)=='d' || direction == 's' && dir.charAt(0)=='g') { face = 7; }
+		else if( direction == 'o' && dir.charAt(0)=='g' || direction == 'n' && dir.charAt(0)=='d') { face = 8; }
+		else if( direction == 'e' && dir.charAt(0)=='d' || direction == 'n' && dir.charAt(0)=='g') { face = 9; }
 		
 		return face;
 	}
