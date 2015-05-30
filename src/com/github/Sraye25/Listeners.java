@@ -3,6 +3,7 @@ package com.github.Sraye25;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,7 @@ public class Listeners extends JavaPlugin implements Listener
 	public void onVehicleMove(VehicleMoveEvent event)
 	{
 		Vehicle vehicule = event.getVehicle();
-		if(vehicule instanceof Minecart)/*est un minecart ?*/
+		if(vehicule.getType() == EntityType.MINECART)/*est un minecart ?*/
 		{
 			Minecart minecart = (Minecart)vehicule;
 			Location loc = minecart.getLocation();
