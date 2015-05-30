@@ -57,8 +57,6 @@ public class Listeners implements Listener
 		    {
 		    	minecart.setMaxSpeed(plugin.getConfig().getDouble("vitesse_moy"));
 		    }
-		    
-		    System.out.println("Bloc : " + id_bloc_sous_minecart + " / vitesse_max : " + minecart.getMaxSpeed() + " / vitesse : " + minecart.getVelocity().length());
 		}
 	}
 }
