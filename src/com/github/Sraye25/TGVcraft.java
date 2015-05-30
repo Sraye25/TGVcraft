@@ -12,6 +12,8 @@ public class TGVcraft extends JavaPlugin
 		config.addDefault("vitesse_moy",0.4);
         config.addDefault("vitesse_max",4.0); /* n*vitessenormale */
         config.addDefault("lent_si_vide",true); /*ralentie ou non si il y a rien dans le minecart*/
+        config.addDefault("bloc_debut_tgv",41); /*id bloc debut zone*/
+        config.addDefault("bloc_fin_tgv",22); /*id bloc fin zone*/
         config.options().copyDefaults(true);
 		saveConfig();
 	}
