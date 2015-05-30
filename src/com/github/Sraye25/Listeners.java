@@ -2,7 +2,6 @@ package com.github.Sraye25;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
@@ -10,11 +9,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 
-public class Listeners extends JavaPlugin implements Listener
+public class Listeners implements Listener
 {
-	FileConfiguration config = getConfig();
+	private Plugin plugin;
+	
+	// Notez le constructeur car sinon nous ne pourrions pas obtenir la config ! Nous ne pouvons obtenir la config uniquement avec un objet Plugin !
+	public Listeners(Plugin plugin)
+	{
+		this.plugin = plugin;
+	}
 	
 	@EventHandler
 	public void onVehicleCreate(VehicleCreateEvent event)
@@ -23,8 +28,8 @@ public class Listeners extends JavaPlugin implements Listener
 	  if (vehicle instanceof Minecart)
 	  {
 		  Minecart minecart=(Minecart)vehicle;
-		  minecart.setSlowWhenEmpty(config.getBoolean("lent_si_vide"));
-		  minecart.setMaxSpeed(minecart.getMaxSpeed()*config.getInt("vitesse_max"));
+		  minecart.setSlowWhenEmpty(plugin.getConfig().getBoolean("lent_si_vide"));
+		  minecart.setMaxSpeed(minecart.getMaxSpeed()*plugin.getConfig().getInt("vitesse_max"));
 	  }
 	}
 	

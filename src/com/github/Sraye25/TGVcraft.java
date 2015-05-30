@@ -19,7 +19,7 @@ public class TGVcraft extends JavaPlugin
 	public void onEnable()
 	{
 		loadConfiguration();
-		this.getServer().getPluginManager().registerEvents(new Listeners(), this);
+		this.getServer().getPluginManager().registerEvents(new Listeners(this), this);
 		System.out.println("Chargement de TGVcraft ...");
 	}
 	
