@@ -152,13 +152,13 @@ public class Listeners implements Listener
 		Vector velocity = minecart.getVelocity();
 		if(absolue(velocity.getX()) > absolue(velocity.getZ()))
 		{
-			if(velocity.getX() > 0.0) { dir = 's';}
-			else { dir = 'n'; }
+			if(velocity.getX() > 0.0) dir = 'e';
+			else dir = 'o';
 		}
 		else
 		{
-			if(velocity.getZ() > 0.0) { dir = 'o'; }
-			else {dir = 'e'; }
+			if(velocity.getZ() > 0.0) dir = 's';
+			else dir = 'n';
 		}
 		System.out.println("minecart dir : " + dir);
 		return dir;
