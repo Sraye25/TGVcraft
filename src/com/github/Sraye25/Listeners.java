@@ -1,12 +1,10 @@
 package com.github.Sraye25;
 
 import java.util.List;
-import java.lang.Math;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Vehicle;
@@ -14,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
-import org.bukkit.material.Rails;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
@@ -49,6 +46,9 @@ public class Listeners implements Listener
 		  {
 			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,"dgd"));
 			  minecart.setMetadata("iteration", new FixedMetadataValue(plugin,0));
+			  minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,0));
+			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,0));
+			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,0));
 		  }
 	  }
 	}
@@ -80,7 +80,7 @@ public class Listeners implements Listener
 		    /* Partie direction */
 		    if(plugin.getConfig().getBoolean("dir_active"))
 			{
-		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir"))
+		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
 			    	String dir = avoirDirection(minecart); /*direction*/
 			    	int ite = avoirIteration(minecart); /*iteration*/
@@ -96,13 +96,39 @@ public class Listeners implements Listener
 			    	
 			    }
 			}
+		    minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
+			minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
+			minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
 		}
+	}
+	
+	public int tronc(double nb)
+	{
+		return (int)nb;
 	}
 	
 	public double absolue(double nb)
 	{
 		if(nb < 0.0) { nb=-nb; }
 		return nb;
+	}
+	
+	public boolean blocDifferent(Location loc, int x, int y, int z)
+	{
+		boolean res=false;
+		if(tronc(loc.getX()) != x || tronc(loc.getY()) != y || tronc(loc.getZ()) != z ) { res = true; }
+		return res;
+	}
+	
+	public int avoirInt(Minecart minecart, String meta)
+	{
+		List<MetadataValue> liste_dir = minecart.getMetadata(meta);
+		int i=0;
+    	while(liste_dir.get(i).getOwningPlugin() != plugin) /* tq direction n'est pas du plugin */
+    	{
+    		i++;
+    	}
+    	return liste_dir.get(i).asInt();
 	}
 	
 	public String avoirDirection(Minecart minecart)
