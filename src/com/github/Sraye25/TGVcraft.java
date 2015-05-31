@@ -1,12 +1,18 @@
 package com.github.Sraye25;
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public class TGVcraft extends JavaPlugin
 {
 	FileConfiguration config = getConfig();
+	static Connection connection;
     
 	public void loadConfiguration()
 	{
@@ -17,18 +23,45 @@ public class TGVcraft extends JavaPlugin
         config.addDefault("bloc_fin_tgv",22); /*id bloc fin zone*/
         config.addDefault("bloc_change_dir",42); /*id bloc de changement de direction*/
         config.addDefault("dir_active",true); /*active changement de direction*/
-        config.addDefault("url_db","jdbc:postgresql://localhost:5432/TGVcraft");
+        config.addDefault("url_db","jdbc:mysql://localhost:3306/TGVcraft");
         config.addDefault("user","TGVcraft");
         config.addDefault("password","xuty23");
         config.options().copyDefaults(true);
 		saveConfig();
 	}
 	
-	@Override
 	public void onEnable()
 	{
 		loadConfiguration();
+		
+		/* base de données*/
+		
+		try{
+            Class.forName("com.mysql.jdbc.Driver");
+        }catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            connection = DriverManager.getConnection( getConfig().getString("url_db"), getConfig().getString("user"), getConfig().getString("password"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Connection à MySql effectuée");
+		
 		this.getServer().getPluginManager().registerEvents(new Listeners(this), this);
 	}
+	
+	public void onDisable()
+	{
+        try{
+           if(connection!=null && connection.isClosed())
+           {
+                connection.close();
+           }
+        }catch(Exception e){
+                e.printStackTrace();
+        }
+ 
+    }
 	
 }
