@@ -1,7 +1,5 @@
 package com.github.Sraye25;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,30 +23,12 @@ public class TGVcraft extends JavaPlugin
         config.options().copyDefaults(true);
 		saveConfig();
 	}
-    
-	public Connection connectionDB()
-	{
-		Connection conn = null;
-		try {
-			Class.forName("org.postgresql.Driver");
-			System.out.println("Driver POSTGRESQL OK");
-			String url = getConfig().getString("url_db");
-			String user = getConfig().getString("user");
-			String passwd = getConfig().getString("password");
-			
-			conn = DriverManager.getConnection(url, user, passwd);
-			System.out.println("Connection à postgresql effectuée !!!");
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-		return conn;
-	}
 	
 	@Override
 	public void onEnable()
 	{
 		loadConfiguration();
-		this.getServer().getPluginManager().registerEvents(new Listeners(this,connectionDB()), this);
+		this.getServer().getPluginManager().registerEvents(new Listeners(this), this);
 	}
 	
 }
