@@ -4,7 +4,9 @@ CREATE TABLE Gare (
 	inter_gauche INTEGER,
 	inter_droite INTEGER,
 	dist_gauche INTEGER,
-	dist_droite INTEGER);
+	dist_droite INTEGER,
+	x INTEGER NOT NULL,
+	z INTEGER NOT NULL);
 
 CREATE TABLE Inter (
 	id_inter INTEGER NOT NULL PRIMARY KEY ,
