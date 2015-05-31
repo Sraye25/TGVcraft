@@ -1,5 +1,6 @@
 package com.github.Sraye25;
 
+import java.sql.Connection;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -20,13 +21,15 @@ import org.bukkit.util.Vector;
 public class Listeners implements Listener
 {
 	private Plugin plugin;
+	private Connection connect;
 	
 	/* Notez le constructeur car sinon nous ne pourrions pas obtenir la config ! 
 	 * Nous ne pouvons obtenir la config uniquement avec un objet Plugin !
 	 */
-	public Listeners(Plugin plugin)
+	public Listeners(Plugin plugin, Connection conn)
 	{
 		this.plugin = plugin;
+		this.connect = conn;
 	}
 	
 	@EventHandler
