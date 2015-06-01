@@ -210,10 +210,13 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	private void afficheJoueurTout(Player p, ResultSet result, ResultSetMetaData res) throws SQLException
 	{
-		for(int i = 1; i <= res.getColumnCount(); i++) p.sendMessage("  " + res.getColumnName(i).toUpperCase() + "  |");
+		String ligne="";
+		for(int i = 1; i <= res.getColumnCount(); i++) ligne = ligne + "  " + res.getColumnName(i).toUpperCase() + "  |";
+			p.sendMessage(ligne);
 		while(result.next())
 		{         
-			for(int i = 1; i <= res.getColumnCount(); i++) p.sendMessage("  " + result.getObject(i).toString() + "  |");
+			for(int i = 1; i <= res.getColumnCount(); i++) ligne = ligne +"  " + result.getObject(i).toString() + "  |";
+			p.sendMessage(ligne);
 		}
 	}
 
