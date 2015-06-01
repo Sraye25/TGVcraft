@@ -56,11 +56,15 @@ public class TGVcraftCommand implements CommandExecutor
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
 					else execCgare(p,args);
 				break;
-				
 				case "mgare":
-					if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft mgare <inter_gauche> <dist_gauche> <inter_droite> <dist_droite>");
+					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft mgare <nom> <inter_gauche> <dist_gauche> <inter_droite> <dist_droite>");
 					else execMgare(p,args);
 				break;
+				case "sgare":
+					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sgare <nom>");
+					else execSgare(p,args);
+				break;
+				
 				case "cinter":
 					if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft cinter <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
 					else execCinter(p,args);
@@ -68,6 +72,10 @@ public class TGVcraftCommand implements CommandExecutor
 				case "minter":
 					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft minter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
 					else execMinter(p,args);
+				break;
+				case "sinter":
+					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft minter <id_inter> / gare vide = 0");
+					else execSinter(p,args);
 				break;
 			}
 		}
@@ -85,7 +93,6 @@ public class TGVcraftCommand implements CommandExecutor
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Impossible de créer la gare "+args.get(1));
 			p.sendMessage("Impossible de créer la gare "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
@@ -97,8 +104,18 @@ public class TGVcraftCommand implements CommandExecutor
 		}catch (SQLException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Impossible de modifier la gare "+args.get(1));
 			p.sendMessage("Impossible de modifier la gare "+args.get(1)+" // Veuillez vous reporter au log");
+		}
+	}
+	
+	public void execSgare(Player p, List<String> args)
+	{
+		try {
+			state.executeUpdate("DELETE Gare WHERE nom='"+args.get(1)+"'");
+		}catch (SQLException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			p.sendMessage("Impossible de supprimer la gare "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
@@ -117,12 +134,23 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execMinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id='"+args.get(1)+"'");
+			state.executeUpdate("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id_inter='"+args.get(1)+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Impossible de modifier une intersection ");
 			p.sendMessage("Impossible de modifier l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
+		}
+	}
+	
+	public void execSinter(Player p, List<String> args)
+	{
+		try {
+			state.executeUpdate("DELETE Inter WHERE id_inter='"+args.get(1)+"'");
+		}catch (SQLException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			p.sendMessage("Impossible de supprimer la intersection "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 
