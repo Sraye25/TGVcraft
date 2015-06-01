@@ -1,5 +1,9 @@
 package com.github.Sraye25;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -22,13 +26,15 @@ import org.bukkit.util.Vector;
 public class Listeners implements Listener
 {
 	private Plugin plugin;
+	private Statement state;
 	
 	/* Notez le constructeur car sinon nous ne pourrions pas obtenir la config ! 
 	 * Nous ne pouvons obtenir la config uniquement avec un objet Plugin !
 	 */
-	public Listeners(Plugin plugin)
+	public Listeners(Plugin plugin, Statement state)
 	{
 		this.plugin = plugin;
+		this.state = state;
 	}
 	
 	@EventHandler
@@ -41,6 +47,12 @@ public class Listeners implements Listener
 	    String[] args = fullCommand.substring(cmd.length()+1).split(" ");
 	    System.out.println("Commande : " + cmd);
 	    
+	    switch(cmd)
+	    {
+	    	case "tgvcraft":
+	    		commandeTGVcraft(p,args);
+	    	break;
+	    }
 	}
 	
 	@EventHandler
@@ -116,6 +128,64 @@ public class Listeners implements Listener
 		    minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
 			minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
+		}
+	}
+	
+	public void commandeTGVcraft(Player p, String[] arg)
+	{
+		int i;
+		List<String> args = Arrays.asList(arg);
+		
+		if(arg.length < 10)
+		{
+			for(i=arg.length;i<10;i++)
+			{
+				args.add("NULL");
+			}
+		}
+		
+		switch(args.get(0))
+		{
+			case "cgare":
+				Location loc = p.getEyeLocation();
+				int x = tronc(loc.getX());
+				int y = tronc(loc.getY());
+				int z = tronc(loc.getZ());
+				try {
+					ResultSet result = state.executeQuery("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"',NULL,NULL,NULL,NULL,'"+x+"','"+y+"','"+z+"')");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Impossible de créer la gare "+args.get(1));
+				}
+			break;
+			case "mgare":
+				try {
+					ResultSet result = state.executeQuery("UPDATE Gare SET inter_gauche='"+args.get(2)+"',dist_gauche='"+args.get(3)+"',inter_droite='"+args.get(4)+"',dist_droite='"+args.get(5)+"' WHERE nom='"+args.get(1)+"'");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Impossible de modifier la gare "+args.get(1));
+				}
+			break;
+			case "cinter":
+				try {
+					ResultSet result = state.executeQuery("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Impossible de créer une intersection ");
+				}
+			break;
+			case "minter":
+				try {
+					ResultSet result = state.executeQuery("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id='"+args.get(1)+"'");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("Impossible de modifier une intersection ");
+				}
+			break;
 		}
 	}
 	

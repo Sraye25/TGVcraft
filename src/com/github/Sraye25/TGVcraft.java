@@ -4,6 +4,7 @@ package com.github.Sraye25;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public class TGVcraft extends JavaPlugin
 {
 	FileConfiguration config = getConfig();
 	static Connection connection;
+	static Statement state;
     
 	public void loadConfiguration()
 	{
@@ -41,14 +43,21 @@ public class TGVcraft extends JavaPlugin
         }catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
+		
         try{
             connection = DriverManager.getConnection( getConfig().getString("url_db"), getConfig().getString("user"), getConfig().getString("password"));
-        } catch (SQLException e) {
+        }catch (SQLException e){
             e.printStackTrace();
         }
         System.out.println("Connection à MySql effectuée");
+        
+        try{
+        	state = connection.createStatement();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 		
-		this.getServer().getPluginManager().registerEvents(new Listeners(this), this);
+		this.getServer().getPluginManager().registerEvents(new Listeners(this,state), this);
 	}
 	
 	public void onDisable()
@@ -61,7 +70,16 @@ public class TGVcraft extends JavaPlugin
         }catch(Exception e){
                 e.printStackTrace();
         }
- 
+        
+        try{
+            if(state!=null && state.isClosed())
+            {
+            	state.close();
+            }
+         }catch(Exception e){
+                 e.printStackTrace();
+         }
+        
     }
 	
 }
