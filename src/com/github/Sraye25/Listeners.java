@@ -36,9 +36,10 @@ public class Listeners implements Listener
 	{
 	    Player p = event.getPlayer();
 	    String fullCommand = event.getMessage();
-	    String[] cmd = fullCommand.substring(1).split(" ", 1);
-	    String[] args = fullCommand.substring(cmd[0].length()+1).split(" ");
-	    System.out.println("Commande : " + cmd[0]);
+	    String[] ttcmd = fullCommand.substring(1).split(" ");
+	    String cmd = ttcmd[0];
+	    String[] args = fullCommand.substring(cmd.length()+1).split(" ");
+	    System.out.println("Commande : " + cmd);
 	    
 	}
 	
