@@ -5,5 +5,6 @@ description: Plugin de gestion de réseau de minecart
 database: true
 
 commands:
-tgvcraft:
-description: Commandes du plugin TGVcraft
+    tgvcraft:
+        description: Commandes du plugin TGVcraft
+        usage: /<command> [mode]
