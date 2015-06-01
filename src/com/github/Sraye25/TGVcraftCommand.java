@@ -126,6 +126,7 @@ public class TGVcraftCommand implements CommandExecutor
 		
 		try {
 			state.executeUpdate("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"',NULL,NULL,NULL,NULL,'"+x+"','"+y+"','"+z+"')");
+			p.sendMessage("Creation de la gare "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			p.sendMessage("Impossible de créer la gare "+args.get(1)+" // Veuillez vous reporter au log");
@@ -136,6 +137,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		try {
 			state.executeUpdate("UPDATE Gare SET inter_gauche='"+args.get(2)+"',dist_gauche='"+args.get(3)+"',inter_droite='"+args.get(4)+"',dist_droite='"+args.get(5)+"' WHERE nom='"+args.get(1)+"'");
+			p.sendMessage("Mise a jour de la gare "+args.get(1));
 		}catch (SQLException e){
 			e.printStackTrace();
 			p.sendMessage("Impossible de modifier la gare "+args.get(1)+" // Veuillez vous reporter au log");
@@ -146,6 +148,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		try {
 			state.executeUpdate("DELETE FROM Gare WHERE nom='"+args.get(1)+"'");
+			p.sendMessage("Suppression de la gare "+args.get(1));
 		}catch (SQLException e){
 			e.printStackTrace();
 			p.sendMessage("Impossible de supprimer la gare "+args.get(1)+" // Veuillez vous reporter au log");
@@ -182,6 +185,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		try {
 			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			p.sendMessage("Creation de l'intersection "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			p.sendMessage("Impossible de créer l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
@@ -192,6 +196,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		try {
 			state.executeUpdate("UPDATE Inter SET gare_n='"+args.get(2)+"',gare_s='"+args.get(3)+"',gare_e='"+args.get(4)+"',gare_o='"+args.get(5)+"' WHERE id_inter='"+args.get(1)+"'");
+			p.sendMessage("Creation de l'intersection "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			p.sendMessage("Impossible de modifier l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
@@ -202,6 +207,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		try {
 			state.executeUpdate("DELETE FROM Inter WHERE id_inter='"+args.get(1)+"'");
+			p.sendMessage("Creation de l'intersection "+args.get(1));
 		}catch (SQLException e){
 			e.printStackTrace();
 			p.sendMessage("Impossible de supprimer la intersection "+args.get(1)+" // Veuillez vous reporter au log");
