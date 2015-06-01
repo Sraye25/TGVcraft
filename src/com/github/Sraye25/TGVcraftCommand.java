@@ -180,7 +180,7 @@ public class TGVcraftCommand implements CommandExecutor
 		ResultSet result;
 		try{
 			result = state.executeQuery("SELECT nom FROM Gare WHERE id_gare = '"+ id +"'");
-			ret = result.getObject(1).toString();
+			ret = result.getString("nom");
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -189,15 +189,15 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	private int avoirIdGare(String nom)
 	{
-		String ret="";
+		int ret = 0;
 		ResultSet result;
 		try{
 			result = state.executeQuery("SELECT id_gare FROM Gare WHERE nom = '"+ nom +"'");
-			ret = result.getObject(1).toString();
+			ret = result.getInt("id_gare");
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
-		return Integer.parseInt(ret);
+		return ret;
 	}
 	
 	private void afficheJoueurTout(Player p, ResultSet result, ResultSetMetaData res) throws SQLException
