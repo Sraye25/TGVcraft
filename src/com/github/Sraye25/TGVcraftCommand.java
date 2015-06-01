@@ -66,7 +66,7 @@ public class TGVcraftCommand implements CommandExecutor
 				break;
 				
 				case "cinter":
-					if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft cinter <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
+					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft cinter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
 					else execCinter(p,args);
 				break;
 				case "minter":
@@ -119,10 +119,10 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execCinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("INSERT INTO Inter VALUES (NULL,'"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			p.sendMessage("Impossible de créer l'intersection // Veuillez vous reporter au log");
+			p.sendMessage("Impossible de créer l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
