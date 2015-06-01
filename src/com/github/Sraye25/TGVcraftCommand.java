@@ -214,8 +214,13 @@ public class TGVcraftCommand implements CommandExecutor
 		for(int i = 1; i <= res.getColumnCount(); i++) ligne = ligne + "  " + res.getColumnName(i).toUpperCase() + "  |";
 			p.sendMessage(ligne);
 		while(result.next())
-		{         
-			for(int i = 1; i <= res.getColumnCount(); i++) ligne = ligne +"  " + result.getObject(i).toString() + "  |";
+		{
+			ligne = "";
+			for(int i = 1; i <= res.getColumnCount(); i++)
+			{
+				if(result.getObject(i).toString() == null) ligne = ligne +"  " + " null " + "  |";
+				else ligne = ligne +"  " + result.getObject(i).toString() + "  |";
+			}
 			p.sendMessage(ligne);
 		}
 	}
