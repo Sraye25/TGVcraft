@@ -119,7 +119,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execCinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			state.executeUpdate("INSERT INTO Inter VALUES (NULL,'"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Impossible de créer une intersection ");

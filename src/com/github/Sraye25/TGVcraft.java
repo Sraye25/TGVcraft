@@ -49,7 +49,7 @@ public class TGVcraft extends JavaPlugin
         }catch (SQLException e){
             e.printStackTrace();
         }
-        System.out.println("Connection à MySql effectuée");
+        System.out.println("[TGVcraft] Connection à MySql effectuée");
         
         try{
         	state = connection.createStatement();
