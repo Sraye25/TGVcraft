@@ -62,26 +62,18 @@ public class TGVcraftCommand implements CommandExecutor
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
 					else execCgare(p,args);
 				break;
-				case "mgare":
-					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft mgare <nom> <inter_gauche> <dist_gauche> <inter_droite> <dist_droite>");
-					else execMgare(p,args);
-				break;
 				case "sgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sgare <nom>");
 					else execSgare(p,args);
 				break;
 				
 				case "inter":
-					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft inter [id]");
+					if(arg.length != 1) p.sendMessage("Utilisation : /tgvcraft inter");
 					else execinter(p,arg);
 				break;
 				case "cinter":
 					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft cinter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
 					else execCinter(p,args);
-				break;
-				case "minter":
-					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft minter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
-					else execMinter(p,args);
 				break;
 				case "sinter":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sinter <id_inter> / gare vide = 0");
@@ -125,7 +117,7 @@ public class TGVcraftCommand implements CommandExecutor
 		int z = tronc(loc.getZ());
 		
 		try {
-			state.executeUpdate("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"',NULL,NULL,NULL,NULL,'"+x+"','"+y+"','"+z+"')");
+			state.executeUpdate("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"','"+x+"','"+y+"','"+z+"')");
 			p.sendMessage("Creation de la gare "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -133,16 +125,6 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
-	public void execMgare(Player p, List<String> args)
-	{
-		try {
-			state.executeUpdate("UPDATE Gare SET inter_gauche='"+args.get(2)+"',dist_gauche='"+args.get(3)+"',inter_droite='"+args.get(4)+"',dist_droite='"+args.get(5)+"' WHERE nom='"+args.get(1)+"'");
-			p.sendMessage("Mise a jour de la gare "+args.get(1));
-		}catch (SQLException e){
-			e.printStackTrace();
-			p.sendMessage("Impossible de modifier la gare "+args.get(1)+" // Veuillez vous reporter au log");
-		}
-	}
 	
 	public void execSgare(Player p, List<String> args)
 	{
@@ -157,34 +139,20 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	public void execinter(Player p, String[] args)
 	{
-		if(args.length == 1)
-		{
-			try {
-				ResultSet result = state.executeQuery("SELECT * FROM Inter");
-				ResultSetMetaData res = result.getMetaData();
-				afficheJoueurTout(p,result,res);
-			}catch (SQLException e){
-				e.printStackTrace();
-				p.sendMessage("Impossible d'afficher toutes les intersections // Veuillez vous reporter au log");
-			}
-		}
-		else
-		{
-			try {
-				ResultSet result = state.executeQuery("SELECT * FROM Gare WHERE id_inter = '"+args[1]+"'");
-				ResultSetMetaData res = result.getMetaData();
-				afficheJoueurTout(p,result,res);
-			}catch (SQLException e){
-				e.printStackTrace();
-				p.sendMessage("Impossible d'afficher l'intersection " + args[1] + " // Veuillez vous reporter au log");
-			}
+		try {
+			ResultSet result = state.executeQuery("SELECT * FROM Inter");
+			ResultSetMetaData res = result.getMetaData();
+			afficheJoueurTout(p,result,res);
+		}catch (SQLException e){
+			e.printStackTrace();
+			p.sendMessage("Impossible d'afficher toutes les intersections // Veuillez vous reporter au log");
 		}
 	}
 	
 	public void execCinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+avoirIdGare(args.get(2))+"','"+args.get(3)+"','"+args.get(4)+"')");
 			p.sendMessage("Creation de l'intersection "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -192,26 +160,42 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
-	public void execMinter(Player p, List<String> args)
-	{
-		try {
-			state.executeUpdate("UPDATE Inter SET gare_n='"+args.get(2)+"',gare_s='"+args.get(3)+"',gare_e='"+args.get(4)+"',gare_o='"+args.get(5)+"' WHERE id_inter='"+args.get(1)+"'");
-			p.sendMessage("Creation de l'intersection "+args.get(1));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			p.sendMessage("Impossible de modifier l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
-		}
-	}
-	
 	public void execSinter(Player p, List<String> args)
 	{
 		try {
 			state.executeUpdate("DELETE FROM Inter WHERE id_inter='"+args.get(1)+"'");
-			p.sendMessage("Creation de l'intersection "+args.get(1));
+			p.sendMessage("Suppression de l'intersection "+args.get(1));
 		}catch (SQLException e){
 			e.printStackTrace();
 			p.sendMessage("Impossible de supprimer la intersection "+args.get(1)+" // Veuillez vous reporter au log");
 		}
+	}
+	
+	@SuppressWarnings("unused")
+	private String avoirNomGare(int id)
+	{
+		String ret="";
+		ResultSet result;
+		try{
+			result = state.executeQuery("SELECT nom FROM Gare WHERE id_gare = '"+ id +"'");
+			ret = result.getObject(1).toString();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	private int avoirIdGare(String nom)
+	{
+		String ret="";
+		ResultSet result;
+		try{
+			result = state.executeQuery("SELECT id_gare FROM Gare WHERE nom = '"+ nom +"'");
+			ret = result.getObject(1).toString();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return Integer.parseInt(ret);
 	}
 	
 	private void afficheJoueurTout(Player p, ResultSet result, ResultSetMetaData res) throws SQLException
