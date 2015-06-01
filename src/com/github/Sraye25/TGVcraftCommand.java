@@ -151,8 +151,10 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	public void execCinter(Player p, List<String> args)
 	{
+		int id_gare = avoirIdGare(args.get(2));
+		
 		try {
-			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+avoirIdGare(args.get(2))+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+id_gare+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
 			p.sendMessage("Creation de l'intersection "+args.get(1));
 		} catch (SQLException e) {
 			e.printStackTrace();
