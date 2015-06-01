@@ -49,8 +49,8 @@ public class Listeners implements Listener
 			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
 		  }
-		  System.out.println("Création d'un minecart :");
-		  System.out.println("direction :" + avoirDirection(minecart));
+		  /*System.out.println("Création d'un minecart :");
+		  System.out.println("direction :" + avoirDirection(minecart));*/
 	  }
 	}
 	
@@ -93,8 +93,8 @@ public class Listeners implements Listener
 				    	a_modif.setData(face);
 				    	dir = enlevePremLettre(dir);
 			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir));
-			    		if(dir.length() > 0) System.out.println("dir :" + avoirDirection(minecart).charAt(0));
-			    		else System.out.println("dir : vide");
+			    		/*if(dir.length() > 0) System.out.println("dir :" + avoirDirection(minecart).charAt(0));
+			    		else System.out.println("dir : vide");*/
 			    	}
 			    	
 			    }

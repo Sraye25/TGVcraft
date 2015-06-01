@@ -1,5 +1,7 @@
 package com.github.Sraye25;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -52,6 +54,10 @@ public class TGVcraftCommand implements CommandExecutor
 		{
 			switch(args.get(0))
 			{
+				case "gare":
+					if(arg.length != 1 || arg.length != 2) p.sendMessage("Utilisation : /tgvcraft gare [nom]");
+					else execgare(p,arg);
+				break;
 				case "cgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
 					else execCgare(p,args);
@@ -65,6 +71,10 @@ public class TGVcraftCommand implements CommandExecutor
 					else execSgare(p,args);
 				break;
 				
+				case "inter":
+					if(arg.length != 1 || arg.length != 2) p.sendMessage("Utilisation : /tgvcraft inter [id]");
+					else execinter(p,arg);
+				break;
 				case "cinter":
 					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft cinter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
 					else execCinter(p,args);
@@ -77,6 +87,32 @@ public class TGVcraftCommand implements CommandExecutor
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sinter <id_inter> / gare vide = 0");
 					else execSinter(p,args);
 				break;
+			}
+		}
+	}
+	
+	public void execgare(Player p, String[] args)
+	{
+		if(args.length == 1)
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT * FROM Gare");
+				ResultSetMetaData res = result.getMetaData();
+				afficheJoueurTout(p,result,res);
+			}catch (SQLException e){
+				e.printStackTrace();
+				p.sendMessage("Impossible d'afficher toutes les gares // Veuillez vous reporter au log");
+			}
+		}
+		else
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT * FROM Gare WHERE nom = '"+args[1]+"'");
+				ResultSetMetaData res = result.getMetaData();
+				afficheJoueurTout(p,result,res);
+			}catch (SQLException e){
+				e.printStackTrace();
+				p.sendMessage("Impossible d'afficher la gare " + args[1] + " // Veuillez vous reporter au log");
 			}
 		}
 	}
@@ -116,6 +152,32 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
+	public void execinter(Player p, String[] args)
+	{
+		if(args.length == 1)
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT * FROM Inter");
+				ResultSetMetaData res = result.getMetaData();
+				afficheJoueurTout(p,result,res);
+			}catch (SQLException e){
+				e.printStackTrace();
+				p.sendMessage("Impossible d'afficher toutes les intersections // Veuillez vous reporter au log");
+			}
+		}
+		else
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT * FROM Gare WHERE id_inter = '"+args[1]+"'");
+				ResultSetMetaData res = result.getMetaData();
+				afficheJoueurTout(p,result,res);
+			}catch (SQLException e){
+				e.printStackTrace();
+				p.sendMessage("Impossible d'afficher l'intersection " + args[1] + " // Veuillez vous reporter au log");
+			}
+		}
+	}
+	
 	public void execCinter(Player p, List<String> args)
 	{
 		try {
@@ -139,10 +201,19 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execSinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("DELETE Inter WHERE id_inter='"+args.get(1)+"'");
+			state.executeUpdate("DELETE FROM Inter WHERE id_inter='"+args.get(1)+"'");
 		}catch (SQLException e){
 			e.printStackTrace();
 			p.sendMessage("Impossible de supprimer la intersection "+args.get(1)+" // Veuillez vous reporter au log");
+		}
+	}
+	
+	private void afficheJoueurTout(Player p, ResultSet result, ResultSetMetaData res) throws SQLException
+	{
+		for(int i = 1; i <= res.getColumnCount(); i++) p.sendMessage("  " + res.getColumnName(i).toUpperCase() + "  |");
+		while(result.next())
+		{         
+			for(int i = 1; i <= res.getColumnCount(); i++) p.sendMessage("  " + result.getObject(i).toString() + "  |");
 		}
 	}
 
