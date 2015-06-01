@@ -55,7 +55,7 @@ public class TGVcraftCommand implements CommandExecutor
 			switch(args.get(0))
 			{
 				case "gare":
-					if(arg.length > 2) p.sendMessage("Utilisation : /tgvcraft gare [nom]");
+					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft gare [nom]");
 					else execgare(p,arg);
 				break;
 				case "cgare":
@@ -72,7 +72,7 @@ public class TGVcraftCommand implements CommandExecutor
 				break;
 				
 				case "inter":
-					if(arg.length > 2) p.sendMessage("Utilisation : /tgvcraft inter [id]");
+					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft inter [id]");
 					else execinter(p,arg);
 				break;
 				case "cinter":
