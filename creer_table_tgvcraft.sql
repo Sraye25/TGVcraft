@@ -2,18 +2,12 @@ CREATE TABLE Gare (
 	id_gare INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (id_gare),
 	nom VARCHAR(50) NOT NULL UNIQUE,
-	inter_gauche INTEGER,
-	inter_droite INTEGER,
-	dist_gauche INTEGER,
-	dist_droite INTEGER,
 	x INTEGER NOT NULL,
 	y INTEGER NOT NULL,
 	z INTEGER NOT NULL);
 
 CREATE TABLE Inter (
-	id_inter INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (id_inter),
-	gare_n INTEGER,
-	gare_s INTEGER,
-	gare_e INTEGER,
-	gare_o INTEGER);
+	id_inter INT UNSIGNED NOT NULL,
+	id_gare INT UNSIGNED NOT NULL REFERENCES Gare(id_gare) ON DELETE CASCADE,
+	cote_inter CHAR(1) NOT NULL,
+	cote_gare CHAR(1) NOT NULL,

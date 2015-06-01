@@ -172,7 +172,7 @@ public class Listeners implements Listener
 			if(velocity.getZ() > 0.0) dir = 's';
 			else dir = 'n';
 		}
-		System.out.println("minecart dir : " + dir);
+		/*System.out.println("minecart dir : " + dir);*/
 		return dir;
 	}
 	
