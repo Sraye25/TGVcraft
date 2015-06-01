@@ -7,9 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -27,6 +29,17 @@ public class Listeners implements Listener
 	public Listeners(Plugin plugin)
 	{
 		this.plugin = plugin;
+	}
+	
+	@EventHandler
+	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
+	{
+	    Player p = event.getPlayer();
+	    String fullCommand = event.getMessage();
+	    String[] cmd = fullCommand.substring(1).split(" ", 1);
+	    String[] args = fullCommand.substring(cmd[0].length()+1).split(" ");
+	    System.out.println("Commande : " + cmd[0]);
+	    
 	}
 	
 	@EventHandler
