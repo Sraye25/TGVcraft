@@ -1,6 +1,5 @@
 package com.github.Sraye25;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -82,44 +81,48 @@ public class TGVcraftCommand implements CommandExecutor
 		int z = tronc(loc.getZ());
 		
 		try {
-			ResultSet result = state.executeQuery("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"',NULL,NULL,NULL,NULL,'"+x+"','"+y+"','"+z+"')");
+			state.executeUpdate("INSERT INTO Gare VALUES (NULL,'"+args.get(1)+"',NULL,NULL,NULL,NULL,'"+x+"','"+y+"','"+z+"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Impossible de créer la gare "+args.get(1));
+			p.sendMessage("Impossible de créer la gare "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
 	public void execMgare(Player p, List<String> args)
 	{
 		try {
-			ResultSet result = state.executeQuery("UPDATE Gare SET inter_gauche='"+args.get(2)+"',dist_gauche='"+args.get(3)+"',inter_droite='"+args.get(4)+"',dist_droite='"+args.get(5)+"' WHERE nom='"+args.get(1)+"'");
+			state.executeUpdate("UPDATE Gare SET inter_gauche='"+args.get(2)+"',dist_gauche='"+args.get(3)+"',inter_droite='"+args.get(4)+"',dist_droite='"+args.get(5)+"' WHERE nom='"+args.get(1)+"'");
 		}catch (SQLException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Impossible de modifier la gare "+args.get(1));
+			p.sendMessage("Impossible de modifier la gare "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
 	public void execCinter(Player p, List<String> args)
 	{
 		try {
-			ResultSet result = state.executeQuery("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
+			state.executeUpdate("INSERT INTO Inter VALUES ('"+args.get(1)+"','"+args.get(2)+"','"+args.get(3)+"','"+args.get(4)+"','"+args.get(5)+"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Impossible de créer une intersection ");
+			p.sendMessage("Impossible de créer l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
 	public void execMinter(Player p, List<String> args)
 	{
 		try {
-			ResultSet result = state.executeQuery("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id='"+args.get(1)+"'");
+			state.executeUpdate("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id='"+args.get(1)+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Impossible de modifier une intersection ");
+			p.sendMessage("Impossible de modifier l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 
