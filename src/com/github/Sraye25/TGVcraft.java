@@ -92,6 +92,7 @@ public class TGVcraft extends JavaPlugin
 	@EventHandler
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
+		System.out.println("Hopla !!!");
 		if(sender instanceof Player)
 		{
 			Player p = (Player)sender;
