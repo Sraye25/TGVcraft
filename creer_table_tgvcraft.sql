@@ -7,6 +7,7 @@ CREATE TABLE Gare (
 	dist_gauche INTEGER,
 	dist_droite INTEGER,
 	x INTEGER NOT NULL,
+	y INTEGER NOT NULL,
 	z INTEGER NOT NULL);
 
 CREATE TABLE Inter (
