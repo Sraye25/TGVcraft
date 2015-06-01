@@ -2,6 +2,7 @@ name: TGVcraft
 main: com.github.Sraye25.TGVcraft
 version: 0.1
 description: Plugin de gestion de réseau de minecart
+database: true
 
 commands:
 	tgvcraft:
