@@ -218,7 +218,7 @@ public class TGVcraftCommand implements CommandExecutor
 			ligne = "";
 			for(int i = 1; i <= res.getColumnCount(); i++)
 			{
-				if(result.getObject(i).toString() == null) ligne = ligne +"  " + " null " + "  |";
+				if(result.getObject(i) == null) ligne = ligne +"  " + " null " + "  |";
 				else ligne = ligne +"  " + result.getObject(i).toString() + "  |";
 			}
 			p.sendMessage(ligne);
