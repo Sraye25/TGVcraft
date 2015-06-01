@@ -129,7 +129,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execMinter(Player p, List<String> args)
 	{
 		try {
-			state.executeUpdate("UPDATE Inter SET n='"+args.get(2)+"',s='"+args.get(3)+"',e='"+args.get(4)+"',o='"+args.get(5)+"' WHERE id_inter='"+args.get(1)+"'");
+			state.executeUpdate("UPDATE Inter SET gare_n='"+args.get(2)+"',gare_s='"+args.get(3)+"',gare_e='"+args.get(4)+"',gare_o='"+args.get(5)+"' WHERE id_inter='"+args.get(1)+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			p.sendMessage("Impossible de modifier l'intersection "+args.get(1)+" // Veuillez vous reporter au log");
