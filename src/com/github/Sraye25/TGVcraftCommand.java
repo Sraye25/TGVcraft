@@ -27,7 +27,7 @@ public class TGVcraftCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		System.out.println("Hopla !!!");
+		System.out.println("nb d'arg :"+args.length);
 		if(sender instanceof Player)
 		{
 			Player p = (Player)sender;
@@ -45,25 +45,32 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		List<String> args = Arrays.asList(arg);
 		
-		switch(args.get(0))
+		if(arg.length == 0)
 		{
-			case "cgare":
-				if(arg.length != 1) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
-				else execCgare(p,args);
-			break;
-			
-			case "mgare":
-				if(arg.length != 4) p.sendMessage("Utilisation : /tgvcraft mgare <inter_gauche> <dist_gauche> <inter_droite> <dist_droite>");
-				else execMgare(p,args);
-			break;
-			case "cinter":
-				if(arg.length != 4) p.sendMessage("Utilisation : /tgvcraft cinter <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
-				else execCinter(p,args);
-			break;
-			case "minter":
-				if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft minter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
-				else execMinter(p,args);
-			break;
+			p.sendMessage("Il manque les arguments");
+		}
+		else
+		{
+			switch(args.get(0))
+			{
+				case "cgare":
+					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
+					else execCgare(p,args);
+				break;
+				
+				case "mgare":
+					if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft mgare <inter_gauche> <dist_gauche> <inter_droite> <dist_droite>");
+					else execMgare(p,args);
+				break;
+				case "cinter":
+					if(arg.length != 5) p.sendMessage("Utilisation : /tgvcraft cinter <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
+					else execCinter(p,args);
+				break;
+				case "minter":
+					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft minter <id_inter> <gare_nord> <gare_sud> <gare_est> <gare_ouest> / gare vide = 0");
+					else execMinter(p,args);
+				break;
+			}
 		}
 	}
 	
