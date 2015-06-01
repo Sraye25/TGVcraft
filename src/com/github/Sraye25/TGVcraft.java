@@ -89,7 +89,7 @@ public class TGVcraft extends JavaPlugin
          }
     }
 	
-	@EventHandler
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		System.out.println("Hopla !!!");
