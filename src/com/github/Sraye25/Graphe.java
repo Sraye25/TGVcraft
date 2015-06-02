@@ -117,6 +117,7 @@ public class Graphe
 		while(i<liste.size() && !trouver)
 		{
 			if(nom == liste.get(i).nom) trouver=true;
+			System.out.println(i+" nom :"+nom+" k : "+liste.get(i).nom);
 			i++;
 		}
 		i--;
