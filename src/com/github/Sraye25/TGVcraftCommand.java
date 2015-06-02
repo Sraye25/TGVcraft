@@ -180,7 +180,32 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execDistance(Player p, List<String> args)
 	{
 		Graphe graphe = new Graphe(state,args.get(1));
-		p.sendMessage("Distance "+args.get(1)+" -> "+args.get(2)+" : " + graphe.dijkstraDistance(args.get(2)));
+		if(gareExist(args.get(1)) && gareExist(args.get(2)))
+		{
+			p.sendMessage("Distance "+args.get(1)+" -> "+args.get(2)+" : " + graphe.dijkstraDistance(args.get(2)));
+		}
+		else
+		{
+			if(!gareExist(args.get(1))) p.sendMessage("La gare "+args.get(1)+" n'existe pas");
+			else p.sendMessage("La gare "+args.get(2)+" n'existe pas");
+		}
+		
+	}
+	
+	public boolean gareExist(String nom)
+	{
+		boolean ret = false;
+		ResultSet result;
+		try{
+			result = state.executeQuery("SELECT COUNT(*) FROM Gare WHERE nom = '"+ nom +"'");
+			result.next();
+			int res = result.getInt("COUNT(*)");
+			if(res==0) ret=false;
+			else ret=true;
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	@SuppressWarnings("unused")
