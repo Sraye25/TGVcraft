@@ -5,12 +5,14 @@ public class Sommet
 	public String nom;
 	public boolean val;
 	public int label;
+	public Sommet precedent;
 	
 	public Sommet(String nom, int label)
 	{
 		this.nom=nom;
 		this.val=false;
 		this.label=label;
+		this.precedent=null;
 	}
 	
 	public void valider()

@@ -34,18 +34,28 @@ public class Graphe
 		}
 	}
 	
-	public ArrayList<String> dijkstra(String arrivee)
+	public ArrayList<String> dijkstra(String debut, String arrivee)
 	{
-		while(tt_sommets_marquer())
+		while(!tt_sommets_marquer())
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
 			for(Sommet b : voisinNNMarquer(a))
 			{
 				b.label = min(b.label,a.label+distance(a,b));
+				if(b.label==a.label+distance(a,b)) b.precedent=a;
 			}
 		}
-		return null;
+		ArrayList<String> res = new ArrayList<String>();
+		Sommet n = avoirSommet(arrivee);
+		while(n != avoirSommet(debut))
+		{
+			res.add(0,n.nom);
+			n = n.precedent;
+		}
+		res.add(0,avoirSommet(debut).nom);
+		afficheListe(res);
+		return res;
 	}
 	
 	public int dijkstraDistance(String arrivee)
@@ -72,13 +82,13 @@ public class Graphe
 		return res;
 	}
 	
-	public void afficheListe()
+	public void afficheListe(ArrayList<String> list)
 	{
 		System.out.println("Affiche liste :");
 		int i=0;
-		for(Sommet temp : liste)
+		for(String temp : list)
 		{
-			System.out.println(i+" | "+temp.nom+" | "+temp.val+" | "+temp.label);
+			System.out.println(i+" | "+temp);
 			i++;
 		}
 	}
