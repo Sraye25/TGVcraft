@@ -19,7 +19,7 @@ public class Graphe
 			ResultSet result = state.executeQuery("SELECT nom FROM Gare");
 			while(result.next())
 			{
-				if(result.getString("nom") != depart) liste.add(new Sommet(result.getString("nom"),-1));
+				if(!depart.equals(result.getString("nom"))) liste.add(new Sommet(result.getString("nom"),-1));
 				else liste.add(new Sommet(result.getString("nom"),0));
 			}
 		}catch(SQLException e) {
@@ -116,16 +116,12 @@ public class Graphe
 		boolean trouver = false;
 		while(i<liste.size() && !trouver)
 		{
-			if(nom.equals(liste.get(i).nom))
-			{
-				System.out.println("mfksdmlfkmlkfsdml");
-				trouver=true;
-			}
-			System.out.println(i+" nom :"+nom+" k : "+liste.get(i).nom);
+			if(nom.equals(liste.get(i).nom)) trouver=true;
+			/*System.out.println(i+" nom :"+nom+" k : "+liste.get(i).nom);*/
 			i++;
 		}
 		i--;
-		System.out.println("lel :"+i);
+		/*System.out.println("lel :"+i);*/
 		return i;
 	}
 	
