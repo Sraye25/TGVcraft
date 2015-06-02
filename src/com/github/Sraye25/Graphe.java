@@ -36,7 +36,6 @@ public class Graphe
 	
 	public ArrayList<String> dijkstra(String debut, String arrivee)
 	{
-		afficheListe1();
 		while(!tt_sommets_marquer())
 		{
 			Sommet a = sommetChoisit();
@@ -45,7 +44,6 @@ public class Graphe
 			{
 				if(b.label>a.label+distance(a,b))
 				{
-					System.out.println("Ja");
 					b.label=a.label+distance(a,b);
 					b.precedent = a;
 				}
@@ -70,14 +68,7 @@ public class Graphe
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
-			for(Sommet b : voisinNNMarquer(a))
-			{
-				if(b.label>a.label+distance(a,b))
-				{
-					System.out.println("Jna");
-					b.label=a.label+distance(a,b);
-				}
-			}
+			for(Sommet b : voisinNNMarquer(a)) if(b.label>a.label+distance(a,b)) b.label=a.label+distance(a,b);
 		}
 		return avoirSommet(arrivee).label;
 	}

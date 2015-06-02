@@ -179,11 +179,12 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	public void execDistance(Player p, List<String> args)
 	{
-		Graphe graphe = new Graphe(state,args.get(1));
 		if(gareExist(args.get(1)) && gareExist(args.get(2)))
 		{
+			Graphe graphe = new Graphe(state,args.get(1));
+			Graphe graphe1 = new Graphe(state,args.get(1));
 			p.sendMessage("Distance "+args.get(1)+" -> "+args.get(2)+" : " + graphe.dijkstraDistance(args.get(2)));
-			graphe.dijkstra(args.get(1),args.get(2));
+			graphe1.dijkstra(args.get(1),args.get(2));
 		}
 		else
 		{
