@@ -113,8 +113,12 @@ public class Graphe
 	public int indexSommet(String nom)
 	{
 		int i=0;
-		while(i<liste.size() && nom != liste.get(i).nom) i++;
-		i--;
+		boolean trouver = false;
+		for(Sommet s : liste)
+		{
+			if(nom == s.nom) trouver = true;
+			if(!trouver) i++;
+		}
 		System.out.println("lel :"+i);
 		return i;
 	}
