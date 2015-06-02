@@ -38,6 +38,7 @@ public class Graphe
 	{
 		while(!tt_sommets_marquer())
 		{
+			afficheListe1();
 			Sommet a = sommetChoisit();
 			a.valider();
 			for(Sommet b : voisinNNMarquer(a))
@@ -71,7 +72,11 @@ public class Graphe
 			a.valider();
 			for(Sommet b : voisinNNMarquer(a))
 			{
-				if(b.label>a.label+distance(a,b)) b.label=a.label+distance(a,b);
+				if(b.label>a.label+distance(a,b))
+				{
+					System.out.println("Jna");
+					b.label=a.label+distance(a,b);
+				}
 			}
 		}
 		return avoirSommet(arrivee).label;
