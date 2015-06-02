@@ -160,6 +160,8 @@ public class Graphe
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Distance "+a.nom+"(gare "+a.estGare()+") a "+b.nom+" : "+dist);
 		return dist;
 	}
 }
