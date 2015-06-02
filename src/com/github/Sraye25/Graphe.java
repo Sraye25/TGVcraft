@@ -33,6 +33,18 @@ public class Graphe
 			e.printStackTrace();
 		}
 		System.out.println("Allocation de liste : "+liste.size());
+		afficheListe();
+	}
+	
+	public void afficheListe()
+	{
+		System.out.println("Affiche liste :");
+		int i=0;
+		for(Sommet temp : liste)
+		{
+			System.out.println(i+" | "+temp.nom+" | "+temp.val+" | "+temp.label);
+			i++;
+		}
 	}
 	
 	public Sommet sommetChoisit()
