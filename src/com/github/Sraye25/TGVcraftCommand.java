@@ -206,7 +206,16 @@ public class TGVcraftCommand implements CommandExecutor
 			Graphe graphe = new Graphe(state,args.get(1));
 			ArrayList<String> chemin = graphe.dijkstra(args.get(1),args.get(2));
 			String res ="";
-			for(String s : chemin) res = res + " -> " + s;
+			boolean prem = true;
+			for(String s : chemin)
+			{
+				if(prem)
+				{
+					res = s;
+					prem = false;
+				}
+				else res = res + " -> " + s;
+			}
 			p.sendMessage("Chemin de "+args.get(1)+" à "+args.get(2)+" : " + res);
 		}
 		else
