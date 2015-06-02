@@ -69,7 +69,7 @@ public class Graphe
 		int i=0;
 		while(!res && i < liste.size())
 		{
-			if(nom == liste.get(i).nom)
+			if(nom.equals(liste.get(i).nom))
 			{
 				res=true;
 				liste.get(i).val = true;
@@ -116,7 +116,7 @@ public class Graphe
 		boolean trouver = false;
 		while(i<liste.size() && !trouver)
 		{
-			if(nom == liste.get(i).nom)
+			if(nom.equals(liste.get(i).nom))
 			{
 				System.out.println("mfksdmlfkmlkfsdml");
 				trouver=true;
