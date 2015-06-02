@@ -49,7 +49,6 @@ public class Graphe
 				}
 			}
 		}
-		afficheListe1();
 		ArrayList<String> res = new ArrayList<String>();
 		Sommet n = avoirSommet(arrivee);
 		while(n != avoirSommet(debut))
@@ -58,7 +57,6 @@ public class Graphe
 			n = n.precedent;
 		}
 		res.add(0,avoirSommet(debut).nom);
-		afficheListe(res);
 		return res;
 	}
 	

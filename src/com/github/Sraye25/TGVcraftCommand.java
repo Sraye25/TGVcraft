@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,6 +83,10 @@ public class TGVcraftCommand implements CommandExecutor
 				case "distance":
 					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft distance <depart> <arrivee>");
 					else execDistance(p,args);
+				break;
+				case "itineraire":
+					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft itineraire <depart> <arrivee>");
+					else execItineraire(p,args);
 				break;
 			}
 		}
@@ -185,6 +190,24 @@ public class TGVcraftCommand implements CommandExecutor
 			Graphe graphe1 = new Graphe(state,args.get(1));
 			p.sendMessage("Distance "+args.get(1)+" -> "+args.get(2)+" : " + graphe.dijkstraDistance(args.get(2)));
 			graphe1.dijkstra(args.get(1),args.get(2));
+		}
+		else
+		{
+			if(!gareExist(args.get(1))) p.sendMessage("La gare "+args.get(1)+" n'existe pas");
+			else p.sendMessage("La gare "+args.get(2)+" n'existe pas");
+		}
+		
+	}
+	
+	public void execItineraire(Player p, List<String> args)
+	{
+		if(gareExist(args.get(1)) && gareExist(args.get(2)))
+		{
+			Graphe graphe = new Graphe(state,args.get(1));
+			ArrayList<String> chemin = graphe.dijkstra(args.get(1),args.get(2));
+			String res ="";
+			for(String s : chemin) res = res + " -> " + s;
+			p.sendMessage("Chemin de "+args.get(1)+" à "+args.get(2)+" : " + res);
 		}
 		else
 		{
