@@ -32,6 +32,7 @@ public class Graphe
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Allocation de liste : "+liste.size());
 	}
 	
 	public Sommet sommetChoisit()
