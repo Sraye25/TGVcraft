@@ -19,7 +19,7 @@ public class Graphe
 			ResultSet result = state.executeQuery("SELECT nom FROM Gare");
 			while(result.next())
 			{
-				if(!depart.equals(result.getString("nom"))) liste.add(new Sommet(result.getString("nom"),-1));
+				if(!depart.equals(result.getString("nom"))) liste.add(new Sommet(result.getString("nom"),Integer.MAX_VALUE));
 				else liste.add(new Sommet(result.getString("nom"),0));
 			}
 		}catch(SQLException e) {
@@ -28,7 +28,7 @@ public class Graphe
 		
 		try {
 			ResultSet result = state.executeQuery("SELECT id_inter FROM Inter GROUP BY id_inter");
-			while(result.next()) liste.add(new Sommet(result.getString("id_inter"),-1));
+			while(result.next()) liste.add(new Sommet(result.getString("id_inter"),Integer.MAX_VALUE));
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,14 @@ public class Graphe
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
-			for(Sommet b : voisinNNMarquer(a)) b.label = b.min(a,distance(a,b));
+			for(Sommet b : voisinNNMarquer(a))
+			{
+				if(b.label>a.label+distance(a,b))
+				{
+					b.label=a.label+distance(a,b);
+					b.precedent = a;
+				}
+			}
 		}
 		afficheListe1();
 		ArrayList<String> res = new ArrayList<String>();
@@ -61,25 +68,12 @@ public class Graphe
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
-			for(Sommet b : voisinNNMarquer(a)) b.label = min(b.label,a.label+distance(a,b));
-		}
-		return avoirSommet(arrivee).label;
-	}
-	
-	public int min(int a, int b)
-	{
-		int res = 0;
-		if(a!=-1 && b!=-1)
-		{
-			if(a<b) res=a;
-			else
+			for(Sommet b : voisinNNMarquer(a))
 			{
-				res=b;
+				if(b.label>a.label+distance(a,b)) b.label=a.label+distance(a,b);
 			}
 		}
-		else if(a!=-1 && b==-1) res = a;
-		else if(a==-1 && b!=-1) res = b;
-		return res;
+		return avoirSommet(arrivee).label;
 	}
 	
 	public void afficheListe1()
@@ -114,7 +108,7 @@ public class Graphe
 		Sommet temp = null;
 		for(Sommet a : liste)
 		{		
-			if(!a.val && a.label!=-1)
+			if(!a.val && a.label!=Integer.MAX_VALUE)
 			{
 				if(prem)
 				{
