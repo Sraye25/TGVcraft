@@ -42,6 +42,7 @@ public class Graphe
 			a.valider();
 			for(Sommet b : voisinNNMarquer(a)) b.label = b.min(a,distance(a,b));
 		}
+		afficheListe1();
 		ArrayList<String> res = new ArrayList<String>();
 		Sommet n = avoirSommet(arrivee);
 		while(n != avoirSommet(debut))
@@ -79,6 +80,20 @@ public class Graphe
 		else if(a!=-1 && b==-1) res = a;
 		else if(a==-1 && b!=-1) res = b;
 		return res;
+	}
+	
+	public void afficheListe1()
+	{
+		System.out.println("Affiche liste :");
+		int i=0;
+		for(Sommet temp : liste)
+		{
+			String aff;
+			if(temp.precedent == null) aff="null";
+			else aff=temp.precedent.nom;
+			System.out.println(i+" | "+temp.nom+" | "+aff);
+			i++;
+		}
 	}
 	
 	public void afficheListe(ArrayList<String> list)
