@@ -180,7 +180,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public void execDistance(Player p, List<String> args)
 	{
 		Graphe graphe = new Graphe(state,args.get(1));
-		p.sendMessage("Distance depart -> arrivee : " + graphe.dijkstraDistance(args.get(2)));
+		p.sendMessage("Distance "+args.get(1)+" -> "+args.get(2)+" : " + graphe.dijkstraDistance(args.get(2)));
 	}
 	
 	@SuppressWarnings("unused")

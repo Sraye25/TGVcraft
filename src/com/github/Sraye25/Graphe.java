@@ -101,7 +101,11 @@ public class Graphe
 		{
 			if(!a.val && a.label!=-1)
 			{
-				if(prem) labmin = a.label;
+				if(prem)
+				{
+					labmin = a.label;
+					prem=false;
+				}
 				if(a.label <= labmin) temp = a;
 			}
 		}
