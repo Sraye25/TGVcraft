@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,6 +79,10 @@ public class TGVcraftCommand implements CommandExecutor
 				case "sinter":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sinter <id_inter>");
 					else execSinter(p,args);
+				break;
+				case "distance":
+					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft distance <depart> <arrivee>");
+					else execDistance(p,args);
 				break;
 			}
 		}
@@ -173,6 +178,11 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
+	public void execDistance(Player p, List<String> args)
+	{
+		p.sendMessage("Distance depart -> arrivee : " + dijkstraDistance(state,args.get(1),args.get(2)));
+	}
+	
 	@SuppressWarnings("unused")
 	private String avoirNomGare(int id)
 	{
@@ -199,7 +209,7 @@ public class TGVcraftCommand implements CommandExecutor
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
-		System.out.println("nom : "+nom+" | id_gare : "+ret);
+		/*System.out.println("nom : "+nom+" | id_gare : "+ret);*/
 		return ret;
 	}
 	
@@ -223,5 +233,46 @@ public class TGVcraftCommand implements CommandExecutor
 	private int tronc(double y)
 	{
 		return (int)y;
+	}
+	
+	/* Calcule distance */
+	
+	public ArrayList<String> dijkstra(Statement state, String depart, String arrivee)
+	{
+		Graphe graphe = new Graphe(state,depart);
+		while(graphe.tt_sommets_marquer())
+		{
+			Sommet a = graphe.sommetChoisit();
+			a.valider();
+			for(Sommet b : graphe.voisinNNMarquer(a))
+			{
+				b.label = min(b.label,a.label+graphe.distance(a,b));
+			}
+		}
+		System.out.println("Distance depart -> arrivee : "+graphe.avoirSommet(arrivee).label);
+		return null;
+	}
+	
+	public int dijkstraDistance(Statement state, String depart, String arrivee)
+	{
+		Graphe graphe = new Graphe(state,depart);
+		while(graphe.tt_sommets_marquer())
+		{
+			Sommet a = graphe.sommetChoisit();
+			a.valider();
+			for(Sommet b : graphe.voisinNNMarquer(a))
+			{
+				b.label = min(b.label,a.label+graphe.distance(a,b));
+			}
+		}
+		return graphe.avoirSommet(arrivee).label;
+	}
+	
+	public int min(int a, int b)
+	{
+		int res = 0;
+		if(a<b && b==-1 && a!=-1) res=a;
+		if(b<a && a==-1 && b!=-1) res=b;
+		return res;
 	}
 }
