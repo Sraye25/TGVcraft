@@ -257,7 +257,7 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		Graphe graphe = new Graphe(state,depart);
 		graphe.afficheListe();
-		while(graphe.tt_sommets_marquer())
+		while(!graphe.tt_sommets_marquer())
 		{
 			Sommet a = graphe.sommetChoisit();
 			a.valider();
