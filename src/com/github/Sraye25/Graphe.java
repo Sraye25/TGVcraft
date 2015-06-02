@@ -36,9 +36,9 @@ public class Graphe
 	
 	public ArrayList<String> dijkstra(String debut, String arrivee)
 	{
+		afficheListe1();
 		while(!tt_sommets_marquer())
 		{
-			afficheListe1();
 			Sommet a = sommetChoisit();
 			a.valider();
 			for(Sommet b : voisinNNMarquer(a))
