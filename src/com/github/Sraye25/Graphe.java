@@ -44,6 +44,7 @@ public class Graphe
 			{
 				if(b.label>a.label+distance(a,b))
 				{
+					System.out.println("Ja");
 					b.label=a.label+distance(a,b);
 					b.precedent = a;
 				}
@@ -85,7 +86,7 @@ public class Graphe
 			String aff;
 			if(temp.precedent == null) aff="null";
 			else aff=temp.precedent.nom;
-			System.out.println(i+" | "+temp.nom+" | "+aff);
+			System.out.println(i+" | "+temp.nom+" | "+temp.label+" | "+aff);
 			i++;
 		}
 	}
