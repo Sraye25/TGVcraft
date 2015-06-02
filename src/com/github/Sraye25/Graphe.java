@@ -114,11 +114,12 @@ public class Graphe
 	{
 		int i=0;
 		boolean trouver = false;
-		for(Sommet s : liste)
+		while(i<liste.size() && !trouver)
 		{
-			if(nom == s.nom) trouver = true;
-			if(!trouver) i++;
+			if(nom == liste.get(i).nom) trouver=true;
+			i++;
 		}
+		i--;
 		System.out.println("lel :"+i);
 		return i;
 	}
