@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -180,7 +179,8 @@ public class TGVcraftCommand implements CommandExecutor
 	
 	public void execDistance(Player p, List<String> args)
 	{
-		p.sendMessage("Distance depart -> arrivee : " + dijkstraDistance(state,args.get(1),args.get(2)));
+		Graphe graphe = new Graphe(state,args.get(1));
+		p.sendMessage("Distance depart -> arrivee : " + graphe.dijkstraDistance(args.get(2)));
 	}
 	
 	@SuppressWarnings("unused")
@@ -235,49 +235,5 @@ public class TGVcraftCommand implements CommandExecutor
 		return (int)y;
 	}
 	
-	/* Calcule distance */
-	
-	public ArrayList<String> dijkstra(Statement state, String depart, String arrivee)
-	{
-		Graphe graphe = new Graphe(state,depart);
-		while(graphe.tt_sommets_marquer())
-		{
-			Sommet a = graphe.sommetChoisit();
-			a.valider();
-			for(Sommet b : graphe.voisinNNMarquer(a))
-			{
-				b.label = min(b.label,a.label+graphe.distance(a,b));
-			}
-		}
-		System.out.println("Distance depart -> arrivee : "+graphe.avoirSommet(arrivee).label);
-		return null;
-	}
-	
-	public int dijkstraDistance(Statement state, String depart, String arrivee)
-	{
-		Graphe graphe = new Graphe(state,depart);
-		graphe.afficheListe();
-		while(!graphe.tt_sommets_marquer())
-		{
-			Sommet a = graphe.sommetChoisit();
-			a.valider();
-			System.out.println(" -> Point selectionnée : "+a.nom+" | "+a.val+" | "+a.label);
-			for(Sommet b : graphe.voisinNNMarquer(a))
-			{
-				b.label = min(b.label,a.label+graphe.distance(a,b));
-				System.out.println(" -> Point : "+b.nom+" | "+b.val+" | "+b.label);
-			}
-		}
-		System.out.println("-- Final --");
-		graphe.afficheListe();
-		return graphe.avoirSommet(arrivee).label;
-	}
-	
-	public int min(int a, int b)
-	{
-		int res = 0;
-		if(a<b && b==-1 && a!=-1) res=a;
-		if(b<a && a==-1 && b!=-1) res=b;
-		return res;
-	}
+
 }

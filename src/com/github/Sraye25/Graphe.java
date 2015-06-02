@@ -34,6 +34,53 @@ public class Graphe
 		}
 	}
 	
+	public ArrayList<String> dijkstra(String arrivee)
+	{
+		while(tt_sommets_marquer())
+		{
+			Sommet a = sommetChoisit();
+			a.valider();
+			for(Sommet b : voisinNNMarquer(a))
+			{
+				b.label = min(b.label,a.label+distance(a,b));
+			}
+		}
+		System.out.println("Distance depart -> arrivee : "+avoirSommet(arrivee).label);
+		return null;
+	}
+	
+	public int dijkstraDistance(String arrivee)
+	{
+		afficheListe();
+		while(!tt_sommets_marquer())
+		{
+			Sommet a = sommetChoisit();
+			a.valider();
+			System.out.println(" -> Point selectionnée : "+a.nom+" | "+a.val+" | "+a.label);
+			for(Sommet b : voisinNNMarquer(a))
+			{
+				b.label = min(b.label,a.label+distance(a,b));
+				System.out.println(" -> Point : "+b.nom+" | "+b.val+" | "+b.label);
+			}
+		}
+		System.out.println("-- Final --");
+		afficheListe();
+		return avoirSommet(arrivee).label;
+	}
+	
+	public int min(int a, int b)
+	{
+		int res = 0;
+		if(a!=-1 && b!=-1)
+		{
+			if(a<b) res=a;
+			else res=b;
+		}
+		else if(a!=-1 && b==-1) res = a;
+		else if(a==-1 && b!=-1) res = b;
+		return res;
+	}
+	
 	public void afficheListe()
 	{
 		System.out.println("Affiche liste :");
