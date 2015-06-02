@@ -50,7 +50,6 @@ public class Graphe
 	
 	public int dijkstraDistance(String arrivee)
 	{
-		afficheListe();
 		while(!tt_sommets_marquer())
 		{
 			Sommet a = sommetChoisit();
@@ -83,8 +82,6 @@ public class Graphe
 			i++;
 		}
 	}
-	
-	
 	
 	public Sommet sommetChoisit()
 	{
