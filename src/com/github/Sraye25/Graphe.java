@@ -116,7 +116,11 @@ public class Graphe
 		boolean trouver = false;
 		while(i<liste.size() && !trouver)
 		{
-			if(nom == liste.get(i).nom) trouver=true;
+			if(nom == liste.get(i).nom)
+			{
+				System.out.println("mfksdmlfkmlkfsdml");
+				trouver=true;
+			}
 			System.out.println(i+" nom :"+nom+" k : "+liste.get(i).nom);
 			i++;
 		}
