@@ -145,7 +145,7 @@ public class Graphe
 		if(!a.estGare()) /*Si a est une inter*/
 		{
 			try {
-				ResultSet result = state.executeQuery("SELECT distance FROM Inter, Gare WHERE nom ='"+b.nom+"' AND id_inter='"+Integer.parseInt(a.nom)+"'");
+				ResultSet result = state.executeQuery("SELECT distance FROM Inter, Gare WHERE Gare.nom ='"+b.nom+"' AND Gare.id_gare=Inter.id_gare AND id_inter='"+Integer.parseInt(a.nom)+"'");
 				while(result.next()) dist = result.getInt("distance");
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -154,7 +154,7 @@ public class Graphe
 		else
 		{
 			try {
-				ResultSet result = state.executeQuery("SELECT distance FROM Inter, Gare WHERE nom ='"+a.nom+"' AND id_inter='"+Integer.parseInt(b.nom)+"'");
+				ResultSet result = state.executeQuery("SELECT distance FROM Inter, Gare WHERE Gare.nom ='"+a.nom+"' AND Gare.id_gare=Inter.id_gare AND id_inter='"+Integer.parseInt(b.nom)+"'");
 				while(result.next()) dist = result.getInt("distance");
 			}catch(SQLException e) {
 				e.printStackTrace();
