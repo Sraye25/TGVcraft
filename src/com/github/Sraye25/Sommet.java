@@ -42,4 +42,25 @@ public class Sommet
 	    }
 	    return true;
 	}
+	
+	public int min(Sommet b,int distance)
+	{
+		int res = 0;
+		if(label!=-1 && (b.label+distance)!=-1)
+		{
+			if(label < (b.label+distance)) res=label;
+			else
+			{
+				precedent = b;
+				res=b.label+distance;
+			}
+		}
+		else if(label!=-1 && (b.label+distance)==-1) res = label;
+		else if(label==-1 && (b.label+distance)!=-1)
+		{
+			precedent = b;
+			res = b.label+distance;
+		}
+		return res;
+	}
 }

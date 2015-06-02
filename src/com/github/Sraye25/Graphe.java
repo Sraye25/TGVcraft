@@ -40,11 +40,7 @@ public class Graphe
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
-			for(Sommet b : voisinNNMarquer(a))
-			{
-				b.label = min(b.label,a.label+distance(a,b));
-				if(b.label==a.label+distance(a,b)) b.precedent=a;
-			}
+			for(Sommet b : voisinNNMarquer(a)) b.label = b.min(a,distance(a,b));
 		}
 		ArrayList<String> res = new ArrayList<String>();
 		Sommet n = avoirSommet(arrivee);
@@ -75,7 +71,10 @@ public class Graphe
 		if(a!=-1 && b!=-1)
 		{
 			if(a<b) res=a;
-			else res=b;
+			else
+			{
+				res=b;
+			}
 		}
 		else if(a!=-1 && b==-1) res = a;
 		else if(a==-1 && b!=-1) res = b;
