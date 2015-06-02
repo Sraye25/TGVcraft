@@ -78,14 +78,6 @@ public class Graphe
 		}
 	}
 	
-	public int indexSommet(String nom)
-	{
-		int i=0;
-		while(nom != liste.get(i).nom && i < liste.size()) i++;
-		i--;
-		return i;
-	}
-	
 	public ArrayList<Sommet> voisinNNMarquer(Sommet x)
 	{
 		ArrayList<Sommet> res = new ArrayList<Sommet>();
@@ -118,12 +110,17 @@ public class Graphe
 		return res;
 	}
 	
-	public Sommet avoirSommet(String nom)
+	public int indexSommet(String nom)
 	{
 		int i=0;
 		while(nom != liste.get(i).nom && i < liste.size()) i++;
 		i--;
-		return liste.get(i);
+		return i;
+	}
+	
+	public Sommet avoirSommet(String nom)
+	{
+		return liste.get(indexSommet(nom));
 	}
 	
 	public boolean tt_sommets_marquer()
