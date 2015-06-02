@@ -45,7 +45,7 @@ public class Graphe
 				b.label = min(b.label,a.label+distance(a,b));
 			}
 		}
-		System.out.println("Distance depart -> arrivee : "+avoirSommet(arrivee).label);
+		System.out.println(" - Distance depart -> arrivee : "+avoirSommet(arrivee).label);
 		return null;
 	}
 	
@@ -56,7 +56,7 @@ public class Graphe
 		{
 			Sommet a = sommetChoisit();
 			a.valider();
-			System.out.println(" -> Point selectionnée : "+a.nom+" | "+a.val+" | "+a.label);
+			System.out.println("Point selectionnée : "+a.nom+" | "+a.val+" | "+a.label);
 			for(Sommet b : voisinNNMarquer(a))
 			{
 				b.label = min(b.label,a.label+distance(a,b));
@@ -91,6 +91,8 @@ public class Graphe
 			i++;
 		}
 	}
+	
+	
 	
 	public Sommet sommetChoisit()
 	{
@@ -156,6 +158,15 @@ public class Graphe
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Affiche voisins nn marque de "+x.nom+" : ");
+		int i=0;
+		for(Sommet temp : res)
+		{
+			System.out.println(i+" | "+temp.nom+" | "+temp.val+" | "+temp.label);
+			i++;
+		}
+		
 		return res;
 	}
 	
