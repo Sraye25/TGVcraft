@@ -12,3 +12,24 @@ CREATE TABLE Inter (
 	cote_inter CHAR(1) NOT NULL,
 	cote_gare CHAR(1) NOT NULL,
 	distance INTEGER);
+
+INSERT INTO Gare VALUES (NULL,'g1',0,0,0);
+INSERT INTO Gare VALUES (NULL,'g2',0,0,0);
+INSERT INTO Gare VALUES (NULL,'g3',0,0,0);
+INSERT INTO Gare VALUES (NULL,'g4',0,0,0);
+INSERT INTO Gare VALUES (NULL,'g5',0,0,0);
+INSERT INTO Gare VALUES (NULL,'g6',0,0,0);
+
+INSERT INTO Inter VALUES (1,1,'e','g',10);
+INSERT INTO Inter VALUES (1,2,'e','g',20);
+INSERT INTO Inter VALUES (1,3,'e','g',120);
+INSERT INTO Inter VALUES (1,7,'e','g',20);
+INSERT INTO Inter VALUES (2,7,'e','g',30);
+INSERT INTO Inter VALUES (2,4,'e','g',40);
+INSERT INTO Inter VALUES (3,4,'e','g',50);
+INSERT INTO Inter VALUES (3,5,'e','g',60);
+INSERT INTO Inter VALUES (3,6,'e','g',100);
+INSERT INTO Inter VALUES (4,2,'e','g',40);
+INSERT INTO Inter VALUES (4,3,'e','g',10);
+INSERT INTO Inter VALUES (4,5,'e','g',70);
+INSERT INTO Inter VALUES (4,6,'e','g',10);
