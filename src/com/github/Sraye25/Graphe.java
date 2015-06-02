@@ -113,8 +113,9 @@ public class Graphe
 	public int indexSommet(String nom)
 	{
 		int i=0;
-		while(nom != liste.get(i).nom && i < liste.size()) i++;
+		while(i<liste.size() && nom != liste.get(i).nom) i++;
 		i--;
+		System.out.println("lel :"+i);
 		return i;
 	}
 	
