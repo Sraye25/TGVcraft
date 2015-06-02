@@ -27,7 +27,7 @@ public class Graphe
 		}
 		
 		try {
-			ResultSet result = state.executeQuery("SELECT id_inter FROM Inter");
+			ResultSet result = state.executeQuery("SELECT id_inter FROM Inter GROUP BY id_inter");
 			while(result.next()) liste.add(new Sommet(result.getString("id_inter"),-1));
 		}catch(SQLException e) {
 			e.printStackTrace();
