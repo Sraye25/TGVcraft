@@ -261,12 +261,14 @@ public class TGVcraftCommand implements CommandExecutor
 		{
 			Sommet a = graphe.sommetChoisit();
 			a.valider();
+			System.out.println(" -> Point selectionnée : "+a.nom+" | "+a.val+" | "+a.label);
 			for(Sommet b : graphe.voisinNNMarquer(a))
 			{
 				b.label = min(b.label,a.label+graphe.distance(a,b));
+				System.out.println(" -> Point : "+b.nom+" | "+b.val+" | "+b.label);
 			}
 		}
-		System.out.println("lel");
+		System.out.println("-- Final --");
 		graphe.afficheListe();
 		return graphe.avoirSommet(arrivee).label;
 	}
