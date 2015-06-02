@@ -256,6 +256,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public int dijkstraDistance(Statement state, String depart, String arrivee)
 	{
 		Graphe graphe = new Graphe(state,depart);
+		graphe.afficheListe();
 		while(graphe.tt_sommets_marquer())
 		{
 			Sommet a = graphe.sommetChoisit();
@@ -265,6 +266,8 @@ public class TGVcraftCommand implements CommandExecutor
 				b.label = min(b.label,a.label+graphe.distance(a,b));
 			}
 		}
+		System.out.println("lel");
+		graphe.afficheListe();
 		return graphe.avoirSommet(arrivee).label;
 	}
 	
