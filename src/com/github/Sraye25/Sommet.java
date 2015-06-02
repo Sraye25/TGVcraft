@@ -51,6 +51,7 @@ public class Sommet
 			if(label < (b.label+distance)) res=label;
 			else
 			{
+				System.out.println("Ja1");
 				precedent = b;
 				res=b.label+distance;
 			}
@@ -58,6 +59,7 @@ public class Sommet
 		else if(label!=-1 && (b.label+distance)==-1) res = label;
 		else if(label==-1 && (b.label+distance)!=-1)
 		{
+			System.out.println("Ja2");
 			precedent = b;
 			res = b.label+distance;
 		}
