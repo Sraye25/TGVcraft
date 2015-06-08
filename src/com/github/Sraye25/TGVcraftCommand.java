@@ -88,6 +88,10 @@ public class TGVcraftCommand implements CommandExecutor
 					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft itineraire <depart> <arrivee>");
 					else execItineraire(p,args);
 				break;
+				case "itineraireBasNiveau":
+					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft itineraireBasNiveau <depart> <arrivee>");
+					else execItineraireBasNiveau(p,args);
+				break;
 			}
 		}
 	}
@@ -199,23 +203,30 @@ public class TGVcraftCommand implements CommandExecutor
 		
 	}
 	
+	public void execItineraireBasNiveau(Player p, List<String> args)
+	{
+		if(gareExist(args.get(1)) && gareExist(args.get(2)))
+		{
+			Graphe graphe = new Graphe(state,args.get(1));
+			ArrayList<Sommet> chemin = graphe.dijkstraSommet(args.get(1),args.get(2));
+			String sec = creerSequenceChemin(state,chemin);
+			String res = stringChemin(sec);
+			p.sendMessage("Direction a prendre de "+args.get(1)+" à "+args.get(2)+" : " + res);
+		}
+		else
+		{
+			if(!gareExist(args.get(1))) p.sendMessage("La gare "+args.get(1)+" n'existe pas");
+			else p.sendMessage("La gare "+args.get(2)+" n'existe pas");
+		}
+	}
+	
 	public void execItineraire(Player p, List<String> args)
 	{
 		if(gareExist(args.get(1)) && gareExist(args.get(2)))
 		{
 			Graphe graphe = new Graphe(state,args.get(1));
 			ArrayList<String> chemin = graphe.dijkstra(args.get(1),args.get(2));
-			String res ="";
-			boolean prem = true;
-			for(String s : chemin)
-			{
-				if(prem)
-				{
-					res = s;
-					prem = false;
-				}
-				else res = res + " -> " + s;
-			}
+			String res = stringChemin(chemin);
 			p.sendMessage("Chemin de "+args.get(1)+" à "+args.get(2)+" : " + res);
 		}
 		else
@@ -224,6 +235,34 @@ public class TGVcraftCommand implements CommandExecutor
 			else p.sendMessage("La gare "+args.get(2)+" n'existe pas");
 		}
 		
+	}
+	
+	public String stringChemin(ArrayList<String> chem)
+	{
+		String res ="";
+		boolean prem = true;
+		for(String s : chem)
+		{
+			if(prem)
+			{
+				res = s;
+				prem = false;
+			}
+			else res = res + " -> " + s;
+		}
+		return res;
+	}
+	
+	public String stringChemin(String chem)
+	{
+		String res ="";
+		int i = 0;
+		while(i < chem.length())
+		{
+			if(i==0) res = "" + chem.charAt(0);
+			else res = res + " -> " + chem.charAt(i);
+		}
+		return res;
 	}
 	
 	public boolean gareExist(String nom)
@@ -286,6 +325,112 @@ public class TGVcraftCommand implements CommandExecutor
 				else ligne = ligne +"  " + result.getObject(i).toString() + "  |";
 			}
 			p.sendMessage(ligne);
+		}
+	}
+	
+	public String creerSequenceChemin(Statement state, ArrayList<Sommet> liste)
+	{
+		String res="";
+		int i = 0;
+		ArrayList<String> chemin = creerCheminInter(state,liste);
+		while(i < chemin.size()-1)
+		{
+			res = res + traduire(chemin.get(i),chemin.get(i+1));
+			i+=2;
+		}
+		return res;
+	}
+	
+	public String traduire(String nb1,String nb2)
+	{
+		String res="";
+		if(nb1 == "dep") /* Si on est au depart*/
+		{
+			if(nb2=="g") res = "g";
+			else res = "mdm";
+		}
+		else if(nb2 == "arr")
+		{
+			if(nb1=="g") res = "g";
+			else res = "mdm";
+		}
+		else /* Si l'on est ni à l'arrivée, ni au départ */
+		{
+			if(!etreDirectionGeo(nb2) && !etreDirectionGeo(nb2)) res = "mm"; /*Si on traverse une gare*/
+			else if(etreDirectionGeo(nb1) && etreDirectionGeo(nb2))/*Si on est a une inter*/
+			{
+				if(nb1=="e" && nb2=="o" || nb1=="o" && nb2=="e" || nb1=="n" && nb2=="s" || nb1=="s" && nb2=="n") res = "mm";
+				else if(nb1=="n" && nb2=="e" || nb1=="s" && nb2=="o" || nb1=="e" && nb2=="s" || nb1=="o" && nb2=="n") res = "g";
+				else res = "mdm";
+			}
+		}
+		return res;
+	}
+	
+	public boolean etreDirectionGeo(String dir)
+	{
+		boolean res= false;
+		if(dir == "n" || dir == "s" || dir == "e" || dir == "o") res = true;
+		return res;
+	}
+	
+	public ArrayList<String> creerCheminInter(Statement state, ArrayList<Sommet> liste)
+	{
+		int i = 0;
+		ArrayList<String> res = new ArrayList<String>();
+		String cote_gare = "";
+		String cote_inter = "";
+		res.add("dep");
+		while(i < liste.size()-1)
+		{
+			avoirCote(state,liste.get(i),liste.get(i+1),cote_gare,cote_inter);
+			if(liste.get(i).estGare())
+			{
+				res.add(cote_gare);
+				res.add(cote_inter);
+			}
+			else
+			{
+				res.add(cote_inter);
+				res.add(cote_gare);
+			}
+			i++;
+		}
+		res.add("arr");
+		return res;
+	}
+	
+	public void avoirCote(Statement state, Sommet nb1, Sommet nb2, String cote_gare, String cote_inter)
+	{
+		if(nb1.estGare())
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT cote_inter, cote_gare FROM Inter, Gare WHERE nom ='"+nb1.nom+"' AND Gare.id_gare=Inter.id_gare AND Inter.id_inter='"+nb2.nom+"'");
+				while(result.next())
+				{
+					cote_gare = result.getString("cote_gare");
+					cote_inter = result.getString("cote_inter");
+				}
+				if(cote_gare=="n") cote_gare="s";
+				else if(cote_gare=="s") cote_gare="n";
+				else if(cote_gare=="e") cote_gare="o";
+				else if(cote_gare=="o") cote_gare="e";
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				ResultSet result = state.executeQuery("SELECT cote_inter, cote_gare FROM Inter, Gare WHERE nom ='"+nb2.nom+"' AND Gare.id_gare=Inter.id_gare AND Inter.id_inter='"+nb1.nom+"'");
+				while(result.next())
+				{
+					cote_gare = result.getString("cote_gare");
+					cote_inter = result.getString("cote_inter");
+				}
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
 		}
 	}
 

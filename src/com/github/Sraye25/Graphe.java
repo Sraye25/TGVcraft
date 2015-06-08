@@ -60,6 +60,32 @@ public class Graphe
 		return res;
 	}
 	
+	public ArrayList<Sommet> dijkstraSommet(String debut, String arrivee)
+	{
+		while(!tt_sommets_marquer())
+		{
+			Sommet a = sommetChoisit();
+			a.valider();
+			for(Sommet b : voisinNNMarquer(a))
+			{
+				if(b.label>a.label+distance(a,b))
+				{
+					b.label=a.label+distance(a,b);
+					b.precedent = a;
+				}
+			}
+		}
+		ArrayList<Sommet> res = new ArrayList<Sommet>();
+		Sommet n = avoirSommet(arrivee);
+		while(n != avoirSommet(debut))
+		{
+			res.add(0,n);
+			n = n.precedent;
+		}
+		res.add(0,avoirSommet(debut));
+		return res;
+	}
+	
 	public int dijkstraDistance(String arrivee)
 	{
 		while(!tt_sommets_marquer())
