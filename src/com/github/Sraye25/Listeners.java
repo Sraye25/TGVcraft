@@ -44,7 +44,7 @@ public class Listeners implements Listener
 		  /* --- Partie direction --- */
 		  if(plugin.getConfig().getBoolean("dir_active"))
 		  {
-			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,"dmgd"));
+			  minecart.setMetadata("direction", new FixedMetadataValue(plugin,""));
 			  minecart.setMetadata("x_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getX())));
 			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
