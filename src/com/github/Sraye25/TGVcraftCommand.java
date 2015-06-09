@@ -371,25 +371,29 @@ public class TGVcraftCommand implements CommandExecutor
 	public String traduire(String nb1,String nb2)
 	{
 		String res="";
-		if(nb1 == "dep") /* Si on est au depart*/
+		if(nb1.equals("dep") && !nb2.equals("arr")) /* Si on est au depart*/
 		{
-			System.out.println("JA : "+nb2);
 			if(nb2 == "g") res = "g";
 			else res = "mdm";
 		}
-		if(nb2 == "arr")
+		else if(nb2.equals("arr") && !nb1.equals("dep"))
 		{
 			if(nb1 == "g") res = "g";
 			else res = "mdm";
 		}
-		if(nb2 == "arr" && nb1 == "dep") res = "mddm";
-		
-		if(!(etreDirectionGeo(nb2) || etreDirectionGeo(nb2))) res = "mm"; /*Si on traverse une gare*/
-		else if(etreDirectionGeo(nb1) && etreDirectionGeo(nb2))/*Si on est a une inter*/
+		else if(nb1.equals("dep") && nb2.equals("arr"))
 		{
-			if(nb1=="e" && nb2=="o" || nb1=="o" && nb2=="e" || nb1=="n" && nb2=="s" || nb1=="s" && nb2=="n") res = "mm";
-			else if(nb1=="n" && nb2=="e" || nb1=="s" && nb2=="o" || nb1=="e" && nb2=="s" || nb1=="o" && nb2=="n") res = "g";
-			else res = "mdm";
+			res = "mddm";
+		}
+		else
+		{
+			if(!(etreDirectionGeo(nb2) || etreDirectionGeo(nb2))) res = "mm"; /*Si on traverse une gare*/
+			else if(etreDirectionGeo(nb1) && etreDirectionGeo(nb2))/*Si on est a une inter*/
+			{
+				if(nb1.equals("e") && nb2.equals("o") || nb1.equals("o") && nb2.equals("e") || nb1.equals("n") && nb2.equals("s") || nb1.equals("s") && nb2.equals("n")) res = "mm";
+				else if(nb1.equals("n") && nb2.equals("e") || nb1.equals("s") && nb2.equals("o") || nb1.equals("e") && nb2.equals("s") || nb1.equals("o") && nb2.equals("n")) res = "g";
+				else res = "mdm";
+			}
 		}
 		System.out.println(res);
 		return res;
@@ -401,7 +405,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public boolean etreDirectionGeo(String dir)
 	{
 		boolean res= false;
-		if(dir == "n" || dir == "s" || dir == "e" || dir == "o") res = true;
+		if(dir.equals("n") || dir.equals("s") || dir.equals("o") || dir.equals("e")) res = true;
 		return res;
 	}
 	
