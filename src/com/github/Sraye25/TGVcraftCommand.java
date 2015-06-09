@@ -126,13 +126,13 @@ public class TGVcraftCommand implements CommandExecutor
 		    	{
 		    		String chemin = cheminDeAaB(nomGare,args[1]);
 		    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,chemin));
-		    		p.sendMessage("Le minecart est initialisé, veuillez appuyer sur le bouton pour partir");
+		    		p.sendMessage("Le minecart est initialisé, veillez appuyer sur le bouton pour partir");
 		    	}
 		    	else p.sendMessage("Cette gare est inconnue");
 		    }
-		    else p.sendMessage("Veuillez à ce que vous êtes sur la zone de départ d'une gare ");
+		    else p.sendMessage("Veillez à ce que vous êtes sur la zone de départ d'une gare ");
 		}
-		else p.sendMessage("Veuillez etre dans un minecart pour utiliser cette commande");
+		else p.sendMessage("Veillez etre dans un minecart pour utiliser cette commande");
 	}
 	
 	public void execgare(Player p, String[] args)
@@ -315,7 +315,7 @@ public class TGVcraftCommand implements CommandExecutor
 		String res ="";
 		ResultSet result;
 		try{
-			result = state.executeQuery("SELECT nom FROM Gare WHERE x='"+loc.getX()+"' AND y='"+loc.getY()+"' AND z='"+loc.getZ()+"'");
+			result = state.executeQuery("SELECT nom FROM Gare WHERE x='"+loc.getX()+"' AND y='"+(loc.getY()+1)+"' AND z='"+loc.getZ()+"'");
 			result.next();
 			res = result.getString("nom");
 		}catch (SQLException e){
