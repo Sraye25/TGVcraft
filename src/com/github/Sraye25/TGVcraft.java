@@ -1,6 +1,5 @@
 package com.github.Sraye25;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,6 +15,9 @@ public class TGVcraft extends JavaPlugin
 	static Connection connection;
 	static Statement state;
     
+	/*
+	 * Creer un fichier de config
+	 */
 	public void loadConfiguration()
 	{
 		config.addDefault("vitesse_moy",0.4);
@@ -33,6 +35,10 @@ public class TGVcraft extends JavaPlugin
 		saveConfig();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.bukkit.plugin.java.JavaPlugin#onEnable()
+	 */
 	public void onEnable()
 	{
 		loadConfiguration();
@@ -62,12 +68,17 @@ public class TGVcraft extends JavaPlugin
 		this.getCommand("tgvcraft").setExecutor(new TGVcraftCommand(this,state));
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
+	 */
 	public void onDisable()
 	{
         try{
            if(connection!=null && connection.isClosed())
            {
                 connection.close();
+                System.out.println("[TGVcraft] Fermeture de la connection à MySql effectuée");
            }
         }catch(Exception e){
                 e.printStackTrace();

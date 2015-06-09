@@ -29,6 +29,9 @@ public class Listeners implements Listener
 		this.plugin = plugin;
 	}
 	
+	/*
+	 * Event : Vehicule créer
+	 */
 	@EventHandler
 	public void onVehicleCreate(VehicleCreateEvent event)
 	{
@@ -52,6 +55,9 @@ public class Listeners implements Listener
 	  }
 	}
 	
+	/*
+	 * Event : Si un véhicule bouge
+	 */
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onVehicleMove(VehicleMoveEvent event)
@@ -77,21 +83,20 @@ public class Listeners implements Listener
 		    }
 		    
 		    /* Partie direction */
-		    if(plugin.getConfig().getBoolean("dir_active") && !avoirDirection(minecart).equals(""))
+		    if(plugin.getConfig().getBoolean("dir_active") && !avoirDirection(minecart).equals("")) /* Si la partie dirction est activé et que la metadata est utilisable*/
 			{
+		    	/* Si l'on est sur un cube de fer ( chg de dir )*/
 		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
 			    	String dir = avoirDirection(minecart); /*direction*/
 			    	loc.setY(loc.getY()+1);
 			    	Block a_modif = loc.getBlock();
-			    	if(a_modif.getType() == Material.RAILS && dir.length()!=0)
+			    	if(a_modif.getType() == Material.RAILS)
 			    	{
 			    		byte face = modifDirectionRails(a_modif,dir,minecart);
 				    	a_modif.setData(face);
 				    	dir = enlevePremLettre(dir);
 			    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,dir));
-			    		/*if(dir.length() > 0) System.out.println("dir :" + avoirDirection(minecart).charAt(0));
-			    		else System.out.println("dir : vide");*/
 			    	}
 			    	
 			    }
@@ -188,7 +193,6 @@ public class Listeners implements Listener
 			if(velocity.getZ() > 0.0) dir = 's';
 			else dir = 'n';
 		}
-		/*System.out.println("minecart dir : " + dir);*/
 		return dir;
 	}
 	

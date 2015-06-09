@@ -30,6 +30,10 @@ public class TGVcraftCommand implements CommandExecutor
 		this.state = state;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.bukkit.command.CommandExecutor#onCommand(org.bukkit.command.CommandSender, org.bukkit.command.Command, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
@@ -46,6 +50,9 @@ public class TGVcraftCommand implements CommandExecutor
 	    return true;
 	}
 	
+	/*
+	 * Regroupe toutes les commandes du plugin
+	 */
 	public void commandeTGVcraft(Player p, String[] arg)
 	{
 		List<String> args = Arrays.asList(arg);
