@@ -378,7 +378,7 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 		else if(nb2.equals("arr") && !nb1.equals("dep"))
 		{
-			if(nb1.equals("g")) res = "g";
+			if(nb1.equals("d")) res = "g";
 			else res = "mdm";
 		}
 		else if(nb1.equals("dep") && nb2.equals("arr"))
