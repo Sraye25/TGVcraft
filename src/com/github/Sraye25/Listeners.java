@@ -82,7 +82,6 @@ public class Listeners implements Listener
 		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
 			    	String dir = avoirDirection(minecart); /*direction*/
-			    	System.out.println("dir : "+dir);
 			    	loc.setY(loc.getY()+1);
 			    	Block a_modif = loc.getBlock();
 			    	if(a_modif.getType() == Material.RAILS && dir.length()!=0)

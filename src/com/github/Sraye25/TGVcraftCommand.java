@@ -125,8 +125,12 @@ public class TGVcraftCommand implements CommandExecutor
 		    	if(!nomGare.equals("")) /* Si la gare est reconnue*/
 		    	{
 		    		String chemin = cheminDeAaB(nomGare,args[1]);
-		    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,chemin));
-		    		p.sendMessage("Le minecart est initialisé, veillez appuyer sur le bouton pour partir");
+		    		if(!chemin.equals(""))
+		    		{
+		    			minecart.setMetadata("direction",new FixedMetadataValue(plugin,chemin));
+			    		p.sendMessage("Le minecart est initialisé, veillez appuyer sur le bouton pour partir");
+		    		}
+		    		else p.sendMessage("Impossible de trouver un chemin, veillez mettre une autre gare");
 		    	}
 		    	else p.sendMessage("Cette gare est inconnue");
 		    }
