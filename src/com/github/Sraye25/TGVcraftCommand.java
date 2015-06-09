@@ -237,6 +237,9 @@ public class TGVcraftCommand implements CommandExecutor
 		
 	}
 	
+	/*
+	 * Met en forme l'affichage du chemin à l'ecran
+	 */
 	public String stringChemin(ArrayList<String> chem)
 	{
 		String res ="";
@@ -253,6 +256,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 	
+	/*
+	 * Met en forme l'affichage du chemin à l'ecran
+	 */
 	public String stringChemin(String chem)
 	{
 		String res ="";
@@ -266,6 +272,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 	
+	/*
+	 * Dit si la gare existe
+	 */
 	public boolean gareExist(String nom)
 	{
 		boolean ret = false;
@@ -282,6 +291,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return ret;
 	}
 	
+	/*
+	 * Avoir le nom de la gare grace à son id
+	 */
 	@SuppressWarnings("unused")
 	private String avoirNomGare(int id)
 	{
@@ -297,6 +309,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return ret;
 	}
 	
+	/*
+	 * Avoir l'id de la gare grace à son nom
+	 */
 	private int avoirIdGare(String nom)
 	{
 		int ret = 0;
@@ -344,7 +359,7 @@ public class TGVcraftCommand implements CommandExecutor
 		while(i < chemin.size()-1)
 		{
 			res = res + traduire(chemin.get(i),chemin.get(i+1));
-			System.out.println(i+" : "+chemin.get(i)+" | "+(i+1)+" :"+chemin.get(i+1));
+			System.out.println(i+" : "+chemin.get(i)+" | "+(i+1)+" : "+chemin.get(i+1));
 			i+=2;
 		}
 		return res;
@@ -376,6 +391,7 @@ public class TGVcraftCommand implements CommandExecutor
 				else res = "mdm";
 			}
 		}
+		System.out.println(res);
 		return res;
 	}
 
