@@ -79,7 +79,7 @@ public class Listeners implements Listener
 		    }
 		    
 		    /* Partie direction */
-		    if(plugin.getConfig().getBoolean("dir_active"))
+		    if(plugin.getConfig().getBoolean("dir_active") && !avoirDirection(minecart).equals(""))
 			{
 		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
