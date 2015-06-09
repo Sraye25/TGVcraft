@@ -265,6 +265,7 @@ public class TGVcraftCommand implements CommandExecutor
 		{
 			if(i==0) res = "" + chem.charAt(0);
 			else res = res + " -> " + chem.charAt(i);
+			i++;
 		}
 		return res;
 	}
