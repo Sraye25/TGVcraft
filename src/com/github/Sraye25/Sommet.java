@@ -7,6 +7,9 @@ public class Sommet
 	public int label;
 	public Sommet precedent;
 	
+	/*
+	 * Constructeur de sommet
+	 */
 	public Sommet(String nom, int label)
 	{
 		this.nom=nom;
@@ -15,16 +18,25 @@ public class Sommet
 		this.precedent=null;
 	}
 	
+	/*
+	 * valider un sommet
+	 */
 	public void valider()
 	{
 		this.val = true;
 	}
 	
+	/*
+	 * Dit si le sommet est une gare
+	 */
 	public boolean estGare()
 	{
 		return !isInteger(nom);
 	}
 	
+	/*
+	 * Dit si le string est un nb entier
+	 */
 	public static boolean isInteger(String s)
 	{
 	    return isInteger(s,10);

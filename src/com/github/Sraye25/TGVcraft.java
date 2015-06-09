@@ -24,6 +24,7 @@ public class TGVcraft extends JavaPlugin
         config.addDefault("bloc_debut_tgv",41); /*id bloc debut zone*/
         config.addDefault("bloc_fin_tgv",22); /*id bloc fin zone*/
         config.addDefault("bloc_change_dir",42); /*id bloc de changement de direction*/
+        config.addDefault("bloc_gare",49); /*id d'identification de départ gare*/
         config.addDefault("dir_active",true); /*active changement de direction*/
         config.addDefault("url_db","jdbc:mysql://localhost:3306/TGVcraft");
         config.addDefault("user","TGVcraft");

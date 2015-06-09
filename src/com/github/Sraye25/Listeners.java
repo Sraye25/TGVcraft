@@ -105,8 +105,9 @@ public class Listeners implements Listener
 		}
 	}
 	
-	
-	
+	/*
+	 * Enleve la premiere lettre d'un string
+	 */
 	public String enlevePremLettre(String mot)
 	{
 		int taille = mot.length();
@@ -118,17 +119,26 @@ public class Listeners implements Listener
 		return res;
 	}
 	
+	/*
+	 * Fait la troncature d'un nombre
+	 */
 	public int tronc(double nb)
 	{
 		return (int)nb;
 	}
 	
+	/*
+	 * Renvoie la valeur absolue d'un nb
+	 */
 	public double absolue(double nb)
 	{
 		if(nb < 0.0) { nb=-nb; }
 		return nb;
 	}
 	
+	/*
+	 * Dit si loc et different de (x,y,z)
+	 */
 	public boolean blocDifferent(Location loc, int x, int y, int z)
 	{
 		boolean res=false;
@@ -136,6 +146,9 @@ public class Listeners implements Listener
 		return res;
 	}
 	
+	/*
+	 * Renvoie un int a partir d'une metadata de nom meta
+	 */
 	public int avoirInt(Minecart minecart, String meta)
 	{
 		List<MetadataValue> liste_dir = minecart.getMetadata(meta);
@@ -147,6 +160,9 @@ public class Listeners implements Listener
     	return liste_dir.get(i).asInt();
 	}
 	
+	/*
+	 * Renvoie une direction
+	 */
 	public String avoirDirection(Minecart minecart)
 	{
 		List<MetadataValue> liste_dir = minecart.getMetadata("direction");
@@ -158,6 +174,9 @@ public class Listeners implements Listener
     	return liste_dir.get(i).asString();
 	}
 	
+	/*
+	 * Renvoie la direction du minecart en mouvement
+	 */
 	public char avoirDirectionMinecart(Minecart minecart)
 	{
 		char dir=0;
@@ -176,6 +195,9 @@ public class Listeners implements Listener
 		return dir;
 	}
 	
+	/*
+	 * Modifier la direction d'un rails
+	 */
 	public byte modifDirectionRails(Block a_modif, String dir, Minecart minecart)
 	{
 		byte face = 0;

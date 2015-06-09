@@ -9,15 +9,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
 public class TGVcraftCommand implements CommandExecutor
 {
-	@SuppressWarnings("unused")
 	private Plugin plugin;
 	private Statement state;
 	
@@ -49,14 +52,18 @@ public class TGVcraftCommand implements CommandExecutor
 		
 		if(arg.length == 0)
 		{
-			p.sendMessage("Il manque les arguments");
+			p.sendMessage("Il manque les arguments, veuillez voir la documentation du plugin");
 		}
 		else
 		{
 			switch(args.get(0))
 			{
+				case "aller":
+					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft aller <nom>");
+					else execaller(p,arg);
+				break;
 				case "gare":
-					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft gare [nom]");
+					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft gare <nom>");
 					else execgare(p,arg);
 				break;
 				case "cgare":
@@ -98,6 +105,34 @@ public class TGVcraftCommand implements CommandExecutor
 				break;
 			}
 		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void execaller(Player p, String[] args)
+	{
+		if(p.isInsideVehicle() && p.getVehicle().getType() == EntityType.MINECART) /*Si le joueur est dans un vehicule est que c'est un minecart*/
+		{
+			Minecart minecart = (Minecart)p.getVehicle();
+			Location loc = minecart.getLocation();
+		    loc.setY(loc.getY()-1); /*Avoir block sous le minecart*/
+		    Block b = loc.getBlock();
+		    
+			int id_bloc_sous_minecart = b.getTypeId();
+		    
+		    if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_gare")) /*Si on passe sur un bloc d'obsi*/
+		    {
+		    	String nomGare = avoirNomGareDepart(loc);
+		    	if(!nomGare.equals("")) /* Si la gare est reconnue*/
+		    	{
+		    		String chemin = cheminDeAaB(nomGare,args[1]);
+		    		minecart.setMetadata("direction",new FixedMetadataValue(plugin,chemin));
+		    		p.sendMessage("Le minecart est initialisé, veuillez appuyer sur le bouton pour partir");
+		    	}
+		    	else p.sendMessage("Cette gare est inconnue");
+		    }
+		    else p.sendMessage("Veuillez à ce que vous êtes sur la zone de départ d'une gare ");
+		}
+		else p.sendMessage("Veuillez etre dans un minecart pour utiliser cette commande");
 	}
 	
 	public void execgare(Player p, String[] args)
@@ -151,10 +186,10 @@ public class TGVcraftCommand implements CommandExecutor
 		
 		try {
 			state.executeUpdate("UPDATE Gare SET x='"+x+"', y='"+y+"', z='"+z+"' WHERE nom='"+args.get(1)+"'");
-			p.sendMessage("Suppression de la gare "+args.get(1));
+			p.sendMessage("Modification de la gare "+args.get(1));
 		}catch (SQLException e){
 			e.printStackTrace();
-			p.sendMessage("Impossible de supprimer la gare "+args.get(1)+" // Veuillez vous reporter au log");
+			p.sendMessage("Impossible de modifier la gare "+args.get(1)+" // Veuillez vous reporter au log");
 		}
 	}
 	
@@ -254,6 +289,39 @@ public class TGVcraftCommand implements CommandExecutor
 			else p.sendMessage("La gare "+args.get(2)+" n'existe pas");
 		}
 		
+	}
+	
+	/*
+	 * Renvoie les instruction minecart entre les gares a et b ( renvoie "" si l'une des gare n'existe pas )
+	 */
+	public String cheminDeAaB(String a, String b)
+	{
+		String res = "";
+		if(gareExist(a) && gareExist(b))
+		{
+			Graphe graphe = new Graphe(state,a);
+			ArrayList<Sommet> chemin = graphe.dijkstraSommet(a,b);
+			String sec = creerSequenceChemin(state,chemin);
+			res = stringChemin(sec);
+		}
+		return res;
+	}
+	
+	/*
+	 * Renvoie le nom d'un gare grace à ses coord ( si gare inconnu , alors renvoie "" )
+	 */
+	public String avoirNomGareDepart(Location loc)
+	{
+		String res ="";
+		ResultSet result;
+		try{
+			result = state.executeQuery("SELECT nom FROM Gare WHERE x='"+loc.getX()+"' AND y='"+loc.getY()+"' AND z='"+loc.getZ()+"'");
+			result.next();
+			res = result.getString("nom");
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return res;
 	}
 	
 	/*

@@ -11,6 +11,9 @@ public class Graphe
 	public ArrayList<Sommet> liste;
 	public Statement state;
 	
+	/*
+	 * Constructeur d'un graphe
+	 */
 	public Graphe(Statement state,String depart)
 	{
 		this.state = state;
@@ -34,6 +37,9 @@ public class Graphe
 		}
 	}
 	
+	/*
+	 * Renvoie une liste de nom (dijkstra)
+	 */
 	public ArrayList<String> dijkstra(String debut, String arrivee)
 	{
 		while(!tt_sommets_marquer())
@@ -60,6 +66,9 @@ public class Graphe
 		return res;
 	}
 	
+	/*
+	 * Renvoie une liste de sommets (dijkstra)
+	 */
 	public ArrayList<Sommet> dijkstraSommet(String debut, String arrivee)
 	{
 		while(!tt_sommets_marquer())
@@ -86,6 +95,9 @@ public class Graphe
 		return res;
 	}
 	
+	/*
+	 * Renvoie une distance (dijkstra)
+	 */
 	public int dijkstraDistance(String arrivee)
 	{
 		while(!tt_sommets_marquer())
@@ -97,6 +109,9 @@ public class Graphe
 		return avoirSommet(arrivee).label;
 	}
 	
+	/*
+	 * Affiche une liste dans la console
+	 */
 	public void afficheListe1()
 	{
 		System.out.println("Affiche liste :");
@@ -111,6 +126,9 @@ public class Graphe
 		}
 	}
 	
+	/*
+	 * Affiche une liste dans la console
+	 */
 	public void afficheListe(ArrayList<String> list)
 	{
 		System.out.println("Affiche liste :");
@@ -122,6 +140,9 @@ public class Graphe
 		}
 	}
 	
+	/*
+	 * Choisir un sommet (dijkstra)
+	 */
 	public Sommet sommetChoisit()
 	{
 		int labmin = 0;
@@ -142,6 +163,9 @@ public class Graphe
 		return temp;
 	}
 	
+	/*
+	 * Marque un sommet
+	 */
 	public void valider(String nom)
 	{
 		boolean res=false;
@@ -157,6 +181,9 @@ public class Graphe
 		}
 	}
 	
+	/*
+	 * Renvoie une liste des voisins non marquées de x
+	 */
 	public ArrayList<Sommet> voisinNNMarquer(Sommet x)
 	{
 		ArrayList<Sommet> res = new ArrayList<Sommet>();
@@ -189,6 +216,9 @@ public class Graphe
 		return res;
 	}
 	
+	/*
+	 * Trouver l'index d'un sommet grace à son nom
+	 */
 	public int indexSommet(String nom)
 	{
 		int i=0;
@@ -202,11 +232,17 @@ public class Graphe
 		return i;
 	}
 	
+	/*
+	 * Renvoie un sommet grace à son nom
+	 */
 	public Sommet avoirSommet(String nom)
 	{
 		return liste.get(indexSommet(nom));
 	}
 	
+	/*
+	 * Dit si tous les sommets sont marquées
+	 */
 	public boolean tt_sommets_marquer()
 	{
 		boolean res = true;
@@ -220,6 +256,9 @@ public class Graphe
 		return res;
 	}
 	
+	/*
+	 * Renvoie la distance entre 2 sommets adjacents
+	 */
 	public int distance(Sommet a, Sommet b)
 	{
 		int dist = 0;
