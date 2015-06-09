@@ -373,23 +373,23 @@ public class TGVcraftCommand implements CommandExecutor
 		String res="";
 		if(nb1 == "dep") /* Si on est au depart*/
 		{
-			if(nb2=="g") res = "g";
+			System.out.println("JA : "+nb2);
+			if(nb2 == "g") res = "g";
 			else res = "mdm";
 		}
-		else if(nb2 == "arr")
+		if(nb2 == "arr")
 		{
-			if(nb1=="g") res = "g";
+			if(nb1 == "g") res = "g";
 			else res = "mdm";
 		}
-		else /* Si l'on est ni à l'arrivée, ni au départ */
+		if(nb2 == "arr" && nb1 == "dep") res = "mddm";
+		
+		if(!(etreDirectionGeo(nb2) || etreDirectionGeo(nb2))) res = "mm"; /*Si on traverse une gare*/
+		else if(etreDirectionGeo(nb1) && etreDirectionGeo(nb2))/*Si on est a une inter*/
 		{
-			if(!etreDirectionGeo(nb2) && !etreDirectionGeo(nb2)) res = "mm"; /*Si on traverse une gare*/
-			else if(etreDirectionGeo(nb1) && etreDirectionGeo(nb2))/*Si on est a une inter*/
-			{
-				if(nb1=="e" && nb2=="o" || nb1=="o" && nb2=="e" || nb1=="n" && nb2=="s" || nb1=="s" && nb2=="n") res = "mm";
-				else if(nb1=="n" && nb2=="e" || nb1=="s" && nb2=="o" || nb1=="e" && nb2=="s" || nb1=="o" && nb2=="n") res = "g";
-				else res = "mdm";
-			}
+			if(nb1=="e" && nb2=="o" || nb1=="o" && nb2=="e" || nb1=="n" && nb2=="s" || nb1=="s" && nb2=="n") res = "mm";
+			else if(nb1=="n" && nb2=="e" || nb1=="s" && nb2=="o" || nb1=="e" && nb2=="s" || nb1=="o" && nb2=="n") res = "g";
+			else res = "mdm";
 		}
 		System.out.println(res);
 		return res;
