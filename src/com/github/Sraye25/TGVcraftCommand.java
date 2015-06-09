@@ -301,8 +301,7 @@ public class TGVcraftCommand implements CommandExecutor
 		{
 			Graphe graphe = new Graphe(state,a);
 			ArrayList<Sommet> chemin = graphe.dijkstraSommet(a,b);
-			String sec = creerSequenceChemin(state,chemin);
-			res = stringChemin(sec);
+			res = creerSequenceChemin(state,chemin);
 		}
 		return res;
 	}
