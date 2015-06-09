@@ -63,6 +63,10 @@ public class TGVcraftCommand implements CommandExecutor
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
 					else execCgare(p,args);
 				break;
+				case "mgare":
+					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft mgare <nom>");
+					else execMgare(p,args);
+				break;
 				case "sgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sgare <nom>");
 					else execSgare(p,args);
@@ -138,6 +142,21 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
+	public void execMgare(Player p, List<String> args)
+	{
+		Location loc = p.getEyeLocation();
+		int x = tronc(loc.getX());
+		int y = tronc(loc.getY());
+		int z = tronc(loc.getZ());
+		
+		try {
+			state.executeUpdate("UPDATE Gare SET x='"+x+"', y='"+y+"', z='"+z+"' WHERE nom='"+args.get(1)+"'");
+			p.sendMessage("Suppression de la gare "+args.get(1));
+		}catch (SQLException e){
+			e.printStackTrace();
+			p.sendMessage("Impossible de supprimer la gare "+args.get(1)+" // Veuillez vous reporter au log");
+		}
+	}
 	
 	public void execSgare(Player p, List<String> args)
 	{
@@ -355,11 +374,9 @@ public class TGVcraftCommand implements CommandExecutor
 		String res="";
 		int i = 0;
 		ArrayList<String> chemin = creerCheminInter(state,liste);
-		System.out.println(stringChemin(chemin));
 		while(i < chemin.size()-1)
 		{
 			res = res + traduire(chemin.get(i),chemin.get(i+1));
-			System.out.println(i+" : "+chemin.get(i)+" | "+(i+1)+" : "+chemin.get(i+1));
 			i+=2;
 		}
 		return res;
@@ -395,7 +412,6 @@ public class TGVcraftCommand implements CommandExecutor
 				else res = "mdm";
 			}
 		}
-		System.out.println(res);
 		return res;
 	}
 
