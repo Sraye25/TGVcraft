@@ -312,6 +312,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return ret;
 	}
 	
+	/*
+	 * Affiche une liste de resultat issues d'un requete SQL au joueur en jeu
+	 */
 	private void afficheJoueurTout(Player p, ResultSet result, ResultSetMetaData res) throws SQLException
 	{
 		String ligne="";
@@ -329,6 +332,9 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 	}
 	
+	/*
+	 * Creer un string avec les instruction pour aller de a à b en minecart
+	 */
 	public String creerSequenceChemin(Statement state, ArrayList<Sommet> liste)
 	{
 		String res="";
@@ -338,11 +344,15 @@ public class TGVcraftCommand implements CommandExecutor
 		while(i < chemin.size()-1)
 		{
 			res = res + traduire(chemin.get(i),chemin.get(i+1));
+			System.out.println(i+" : "+chemin.get(i)+" | "+(i+1)+" :"+chemin.get(i+1));
 			i+=2;
 		}
 		return res;
 	}
 	
+	/*
+	 * Traduit des directions en instruction pour le minecart ( droite, gauche et milieu )
+	 */
 	public String traduire(String nb1,String nb2)
 	{
 		String res="";
@@ -368,7 +378,10 @@ public class TGVcraftCommand implements CommandExecutor
 		}
 		return res;
 	}
-	
+
+	/*
+	 * Vrai si on a à faire à une direction ( nord, sud, est et ouest )
+	 */
 	public boolean etreDirectionGeo(String dir)
 	{
 		boolean res= false;
@@ -376,6 +389,10 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 	
+	/*
+	 * Créer une liste avec toutes les directions d'entres et de sortie d'inter et de gares 
+	 * pour aller d'un point a à b
+	 */
 	public ArrayList<String> creerCheminInter(Statement state, ArrayList<Sommet> liste)
 	{
 		int i = 0;
@@ -403,6 +420,11 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 	
+	/*
+	 * Renvoie les directions d'entrées et de sortie entre 2 sommets adjacents
+	 * 1er elem renvoyé : cote_gare
+	 * 2e elem renvoyé : cote_inter
+	 */
 	public ArrayList<String> avoirCote(Statement state, Sommet nb1, Sommet nb2)
 	{
 		String cote_gare = "";
@@ -445,6 +467,9 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 
+	/*
+	 * Faire la troncature d'un nb
+	 */
 	private int tronc(double y)
 	{
 		return (int)y;
