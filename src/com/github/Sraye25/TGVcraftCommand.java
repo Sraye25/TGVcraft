@@ -373,12 +373,12 @@ public class TGVcraftCommand implements CommandExecutor
 		String res="";
 		if(nb1.equals("dep") && !nb2.equals("arr")) /* Si on est au depart*/
 		{
-			if(nb2 == "g") res = "g";
+			if(nb2.equals("g")) res = "g";
 			else res = "mdm";
 		}
 		else if(nb2.equals("arr") && !nb1.equals("dep"))
 		{
-			if(nb1 == "g") res = "g";
+			if(nb1.equals("g")) res = "g";
 			else res = "mdm";
 		}
 		else if(nb1.equals("dep") && nb2.equals("arr"))
