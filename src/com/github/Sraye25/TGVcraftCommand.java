@@ -380,12 +380,13 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		int i = 0;
 		ArrayList<String> res = new ArrayList<String>();
-		String cote_gare = "";
-		String cote_inter = "";
 		res.add("dep");
 		while(i < liste.size()-1)
 		{
-			avoirCote(state,liste.get(i),liste.get(i+1),cote_gare,cote_inter);
+			ArrayList<String> temp = avoirCote(state,liste.get(i),liste.get(i+1));
+			String cote_gare = temp.get(0);
+			String cote_inter = temp.get(1);
+			
 			if(liste.get(i).estGare())
 			{
 				res.add(cote_gare);
@@ -402,8 +403,11 @@ public class TGVcraftCommand implements CommandExecutor
 		return res;
 	}
 	
-	public void avoirCote(Statement state, Sommet nb1, Sommet nb2, String cote_gare, String cote_inter)
+	public ArrayList<String> avoirCote(Statement state, Sommet nb1, Sommet nb2)
 	{
+		String cote_gare = "";
+		String cote_inter = "";
+		
 		if(nb1.estGare())
 		{
 			try {
@@ -434,6 +438,11 @@ public class TGVcraftCommand implements CommandExecutor
 				e.printStackTrace();
 			}
 		}
+		
+		ArrayList<String> res = new ArrayList<String>();
+		res.add(cote_gare);
+		res.add(cote_inter);
+		return res;
 	}
 
 	private int tronc(double y)
