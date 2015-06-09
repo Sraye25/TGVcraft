@@ -315,9 +315,9 @@ public class TGVcraftCommand implements CommandExecutor
 		String res ="";
 		ResultSet result;
 		try{
+			System.out.println(" | x : "+loc.getX()+" | x : "+loc.getY()+" | x : "+loc.getZ());
 			result = state.executeQuery("SELECT nom FROM Gare WHERE x='"+loc.getX()+"' AND y='"+(loc.getY()+1)+"' AND z='"+loc.getZ()+"'");
-			result.next();
-			res = result.getString("nom");
+			while(result.next()) res = result.getString("nom");
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
