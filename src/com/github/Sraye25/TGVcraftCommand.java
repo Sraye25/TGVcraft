@@ -207,10 +207,14 @@ public class TGVcraftCommand implements CommandExecutor
 	{
 		if(gareExist(args.get(1)) && gareExist(args.get(2)))
 		{
+			System.out.println("Creation du graphe");
 			Graphe graphe = new Graphe(state,args.get(1));
 			ArrayList<Sommet> chemin = graphe.dijkstraSommet(args.get(1),args.get(2));
+			System.out.println("Dijkstra fait");
 			String sec = creerSequenceChemin(state,chemin);
+			System.out.println("Sequance fait");
 			String res = stringChemin(sec);
+			System.out.println("Chemin fait");
 			p.sendMessage("Direction a prendre de "+args.get(1)+" à "+args.get(2)+" : " + res);
 		}
 		else
