@@ -49,8 +49,6 @@ public class Listeners implements Listener
 			  minecart.setMetadata("y_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getY())));
 			  minecart.setMetadata("z_prec", new FixedMetadataValue(plugin,tronc(minecart.getLocation().getZ())));
 		  }
-		  /*System.out.println("Création d'un minecart :");
-		  System.out.println("direction :" + avoirDirection(minecart));*/
 	  }
 	}
 	
@@ -84,7 +82,7 @@ public class Listeners implements Listener
 		    	if(id_bloc_sous_minecart == plugin.getConfig().getInt("bloc_change_dir") && blocDifferent(minecart.getLocation(),avoirInt(minecart,"x_prec"),avoirInt(minecart,"y_prec"),avoirInt(minecart,"z_prec")))
 			    {
 			    	String dir = avoirDirection(minecart); /*direction*/
-			    	
+			    	System.out.println("dir : "+dir);
 			    	loc.setY(loc.getY()+1);
 			    	Block a_modif = loc.getBlock();
 			    	if(a_modif.getType() == Material.RAILS && dir.length()!=0)
