@@ -9,7 +9,7 @@ Ce mod a pour but de modifier le comportement des minecarts sur un serveur Spigo
 ##Installation : 
   1. Télécharger les fichiers TGVcraft.jar et creer_table_tgvcraft.sql. 
   2. Mettre le fichier TGVcraft.jar dans le dossier plugins de Spigot. 
-  3. Intaller MySQL et créer un utilisateur ( n'oublier pas de modifier si nécessaire le fichier de configuration ). 
+  3. Intaller MySQL et créer un utilisateur ( n'oubliez pas de modifier si nécessaire le fichier de configuration ). 
   4. Exécuter le fichier creer_table_tgvcraft.sql qui créera les tables nécessaire dans la base de données. 
   5. Enjoy !!!
 
