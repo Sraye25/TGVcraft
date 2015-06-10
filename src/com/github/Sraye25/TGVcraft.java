@@ -30,7 +30,7 @@ public class TGVcraft extends JavaPlugin
         config.addDefault("dir_active",true); /*active changement de direction*/
         config.addDefault("url_db","jdbc:mysql://localhost:3306/TGVcraft");
         config.addDefault("user","TGVcraft");
-        config.addDefault("password","xuty23");
+        config.addDefault("password","1234");
         config.options().copyDefaults(true);
 		saveConfig();
 	}
