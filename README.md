@@ -6,9 +6,9 @@ Ce mod a pour but de modifier le comportement des minecarts sur un serveur Spigo
   * Augmenter la vitesse des Minecarts sur certains tronçons. 
   * Créer un réseau de minecart dans lequel les minecarts peuvent se diriger seul en leur indiquant la gare de départ et celle d'arrivée.
 
-Installation :
+##Installation :
 
-Configuration : 
+##Configuration : 
   * **vitesse_moy** : par défaut "0.4", définit la vitesse moyenne d'un minecart. 
   * **vitesse_max** : par défaut "4.0", définit la vitesse maximale d'un minecart. 
   * **lent_si_vide** : par défaut "false", si l'argument est false, alors un minecart vide avancera aussi vide qu'un minecart plein ou occupé. 
@@ -21,7 +21,7 @@ Configuration :
   * **user** : par défaut "TGVcraft", définit le nom d'utilisateur de la base de données MySQL. 
   * **password** : par défaut "1234", définit le mot de passe de l'utilisateur de la base de données MySQL. 
 
-Commandes : 
+##Commandes : 
   * **/tgvcraft gare "nom_gare"** : Voir toutes les gares ( ainsi que leur localisation ), si on précise un nom, on a que les informations de cette gare. 
   * **/tgvcraft cgare [nom_gare]** : Créer une gare en précisant son nom. Il faut absolument que le joueur qui tape cette commande soit sur la zone de départ de la gare a créé ( sur le cube d'obsidienne par defaut ). 
   * **/tgvcraft mgare [nom_gare]** : Modifier la localisation d'une gare. Il faut absolument que le joueur qui tape cette commande soit sur la zone de départ de la gare a modifié ( sur le cube d'obsidienne par defaut ). 
@@ -34,7 +34,7 @@ Commandes :
   * **/tgvcraft itineraireBasNiveau [depart] [destination]** : Avoir l'itinéaire entre la gare de départ et celle de destination en "instructions minecart" ( instructions qui servent à diriger le minecart). 
   * **/tgvcraft aller [destination]** : Initialiser le minecart ( dans une gare ) afin qu'il connaisse le chemin jusqu'à une gare de destination choisit. 
 
-Permissions : 
+##Permissions : 
   * **tgvcraft.aller** : Pouvoir utiliser /tgvcraft aller [destination] 
   * **tgvcraft.gare.voir** : Pouvoir utiliser /tgvcraft gare "nom_gare" 
   * **tgvcraft.gare.creer** : Pouvoir utiliser /tgvcraft cgare [nom_gare] 
