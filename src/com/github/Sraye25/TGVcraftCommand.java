@@ -37,7 +37,7 @@ public class TGVcraftCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(sender instanceof Player)
+		if(sender instanceof Player) /* Si c'est un joueur*/
 		{
 			Player p = (Player)sender;
 			switch(label)
@@ -56,6 +56,7 @@ public class TGVcraftCommand implements CommandExecutor
 	public void commandeTGVcraft(Player p, String[] arg)
 	{
 		List<String> args = Arrays.asList(arg);
+		boolean permission = true;
 		
 		if(arg.length == 0)
 		{
@@ -67,50 +68,95 @@ public class TGVcraftCommand implements CommandExecutor
 			{
 				case "aller":
 					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft aller <nom>");
-					else execaller(p,arg);
+					else
+					{
+						if(p.hasPermission("tgvcraft.aller")) execaller(p,arg);
+						else permission = false;
+					}
 				break;
 				case "gare":
 					if(arg.length > 2 && arg.length != 0) p.sendMessage("Utilisation : /tgvcraft gare <nom>");
-					else execgare(p,arg);
+					else
+					{
+						if(p.hasPermission("tgvcraft.gare.voir")) execgare(p,arg);
+						else permission = false;
+					}
 				break;
 				case "cgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft cgare <nom>");
-					else execCgare(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.gare.creer")) execCgare(p,args);
+						else permission = false;
+					}
 				break;
 				case "mgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft mgare <nom>");
-					else execMgare(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.gare.modifier")) execMgare(p,args);
+						else permission = false;
+					}
 				break;
 				case "sgare":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sgare <nom>");
-					else execSgare(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.gare.supprimer")) execSgare(p,args);
+						else permission = false;
+					}
 				break;
 				
 				case "inter":
 					if(arg.length != 1) p.sendMessage("Utilisation : /tgvcraft inter");
-					else execinter(p,arg);
+					else
+					{
+						if(p.hasPermission("tgvcraft.inter.voir")) execinter(p,arg);
+						else permission = false;
+					}
 				break;
 				case "cinter":
 					if(arg.length != 6) p.sendMessage("Utilisation : /tgvcraft cinter <id_inter> <nom_gare> <cote_inter> <cote_gare> <distance>");
-					else execCinter(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.inter.creer")) execCinter(p,args);
+						else permission = false;
+					}
 				break;
 				case "sinter":
 					if(arg.length != 2) p.sendMessage("Utilisation : /tgvcraft sinter <id_inter>");
-					else execSinter(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.inter.supprimer")) execSinter(p,args);
+						else permission = false;
+					}
 				break;
 				case "distance":
 					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft distance <depart> <arrivee>");
-					else execDistance(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.distance")) execDistance(p,args);
+						else permission = false;
+					}
 				break;
 				case "itineraire":
 					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft itineraire <depart> <arrivee>");
-					else execItineraire(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.itineraire")) execItineraire(p,args);
+						else permission = false;
+					}
 				break;
 				case "itineraireBasNiveau":
 					if(arg.length != 3) p.sendMessage("Utilisation : /tgvcraft itineraireBasNiveau <depart> <arrivee>");
-					else execItineraireBasNiveau(p,args);
+					else
+					{
+						if(p.hasPermission("tgvcraft.itineraire_bas_niveau")) execItineraireBasNiveau(p,args);
+						else permission = false;
+					}
 				break;
 			}
+			if(!permission) p.sendMessage("Vous n'avez pas la permission !");
 		}
 	}
 	
