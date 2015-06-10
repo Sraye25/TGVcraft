@@ -6,7 +6,12 @@ Ce mod a pour but de modifier le comportement des minecarts sur un serveur Spigo
   * Augmenter la vitesse des Minecarts sur certains tronçons. 
   * Créer un réseau de minecart dans lequel les minecarts peuvent se diriger seul en leur indiquant la gare de départ et celle d'arrivée.
 
-##Installation :
+##Installation : 
+  1. Télécharger les fichiers TGVcraft.jar et creer_table_tgvcraft.sql. 
+  2. Mettre le fichier TGVcraft.jar dans le dossier plugins de Spigot. 
+  3. Intaller MySQL et créer un utilisateur ( n'oublier pas de modifier si nécessaire le fichier de configuration ). 
+  4. Exécuter le fichier creer_table_tgvcraft.sql qui créera les tables nécessaire dans la base de données. 
+  5. Enjoy !!!
 
 ##Configuration : 
   * **vitesse_moy** : par défaut "0.4", définit la vitesse moyenne d'un minecart. 
