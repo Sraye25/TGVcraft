@@ -9,3 +9,51 @@ commands:
     tgvcraft:
         description: Commandes du plugin TGVcraft
         usage: /<command> [mode]
+permissions:
+    tgvcraft.*:
+        description: Donne tt les permissions
+        children:
+            tgvcraft.aller: true
+            tgvcraft.gare.voir: true
+            tgvcraft.gare.creer: true
+            tgvcraft.gare.modifier: true
+            tgvcraft.gare.supprimer: true
+            tgvcraft.inter.voir: true
+            tgvcraft.inter.creer: true
+            tgvcraft.inter.supprimer: true
+            tgvcraft.distance: true
+            tgvcraft.itineraire: true
+            tgvcraft.itineraire_bas_niveau: true
+    tgvcraft.aller:
+        description: Sous-commande aller
+        default: false
+    tgvcraft.gare.voir:
+        description: Sous-commande gare
+        default: false
+    tgvcraft.gare.creer:
+        description: Sous-commande cgare
+        default: false
+    tgvcraft.gare.modifier:
+        description: Sous-commande mgare
+        default: false
+    tgvcraft.gare.supprimer:
+        description: Sous-commande sgare
+        default: false
+    tgvcraft.inter.voir:
+        description: Sous-commande inter
+        default: false
+    tgvcraft.inter.creer:
+        description: Sous-commande cinter
+        default: false
+    tgvcraft.inter.supprimer:
+        description: Sous-commande sinter
+        default: false
+    tgvcraft.distance:
+        description: Sous-commande distance
+        default: false
+    tgvcraft.itineraire:
+        description: Sous-commande itineraire
+        default: false
+    tgvcraft.itineraire_bas_niveau:
+        description: Sous-commande itineraireBasNiveau
+        default: false
